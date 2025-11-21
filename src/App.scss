@@ -1,0 +1,45 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+* {
+    box-sizing: border-box;
+}
+
+.main-background-image-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: -1;
+    overflow: hidden;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.app-container {
+    width: 100%;
+    height: 100vh;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    scroll-snap-type: y mandatory;
+}
+
+.main-page-section {
+    width: 100%;
+    height: 100vh;
+    scroll-snap-align: start;
+    transition: all 1s ease;
+}
+
+.sub-page-section {
+    width: 100%;
+    height: 100vh;
+    scroll-snap-align: start;
+}

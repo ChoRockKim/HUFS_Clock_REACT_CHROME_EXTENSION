@@ -1,0 +1,54 @@
+주요기능: 종강날짜, 공지사항, 학식, 도서관여석, 날씨, 핫링크(커스텀), 개발자에게 건의사항 남기기 기능(POST), 메뉴 랜덤 생성기, 오늘의 한 마디
+
+메인페이지: 공지사항, 학식, 핫링크, 종강날짜, 오늘의 한 마디
+서브페이지: 도서관여석, 날씨, 랜덤메뉴, 건의기능
+
+
+크롬익스텐션 -> URL 로 직접이동하는 것이 아니기 때문에 HashRouter 사용
+Redux-Toolkit 대신 -> Zustand 사용해볼 것
+Chrome Local storage 를 통해 개인설정 관리 -> 비동기이므로 zustand 로 데이터를 불러온 후, 값이 확인되면 화면을 불러오도록 설정
+
+열람실 남은 좌석 api 요청 주소: https://lib.hufs.ac.kr/pyxis-api/1/seat-rooms?smufMethodCode=PC&roomTypeId=2&branchGroupId=1
+
+React-compiler 이용해 메모이제이션 자동화
+리액트 쿼리 이용해 캐싱, 안정화
+
+API요청 주소: https://hufs-clock-api.vercel.app/api/data
+Vercel로 서버를 구축해 get 요청하는 방식으로 사용
+
+일관성 있는 css 관리를 위해 SASS 사용
+부드러운 화면전환 -> swiper.js
+
+대략 구조도
+my-university-clock/
+├── public/              
+│   ├── icons/              # 16x16, 48x48, 128x128 아이콘
+│   │   ├── icon16.png
+│   │   └── icon128.png
+│   └── manifest.json      
+│
+├── src/
+│   ├── api/                # 파이썬 백엔드 통신 코드
+│   │   └── requests.js     # axios 요청 모음
+│   │
+│   ├── assets/             # 리액트 내부에서 쓰는 이미지 (배경화면 등)
+│   │   └── bg.jpg
+│   │
+│   ├── components/         # UI 조각들
+│   │   ├── Clock.jsx       # 메인 시계
+│   │   ├── Notice.jsx      # 공지사항 리스트
+│   │   ├── Cafeteria.jsx   # 학식 정보
+│   │   └── Links.jsx       # 바로가기 아이콘들
+│   │
+│   ├── pages/              # 화면 단위
+│   │   ├── NewTab.jsx      # 새 탭 메인 화면 (모든 컴포넌트 조합)
+│   │   └── Settings.jsx    # 설정 화면 (학과 변경, 테마 등)
+│   │
+│   ├── store/              # Redux (데이터 캐싱용)
+│   │   └── store.js
+│   │
+│   ├── App.jsx             # 라우팅 (HashRouter 사용)
+│   └── main.jsx            # 진입점
+│
+├── package.json
+└── vite.config.js          # 별도 설정 필요 없음 (기본값)
