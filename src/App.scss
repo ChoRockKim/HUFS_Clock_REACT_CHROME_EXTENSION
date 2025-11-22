@@ -5,9 +5,62 @@ html, body {
   height: 100vh;
   overflow: hidden;
 }
+
 * {
     box-sizing: border-box;
 }
+
+@font-face{
+  font-family:'hufs-font-m';
+  src : url(../public/한국외대체M.ttf)
+}
+
+// 글래스모피즘 변수 저장
+%glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 0 0px 0px rgba(255, 255, 255, 0);
+  position: relative;
+  overflow: hidden;
+}
+
+%glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.8),
+    transparent
+  );
+}
+
+%glass-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.8),
+    transparent,
+    rgba(255, 255, 255, 0.3)
+  );
+}
+
 
 .main-background-image-container {
     position: fixed;
@@ -20,6 +73,7 @@ html, body {
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
+    transition: all 1s ease;
 }
 
 .app-container {
@@ -43,3 +97,31 @@ html, body {
     height: 100vh;
     scroll-snap-align: start;
 }
+
+.hufs-bright-img {
+    background-image: url(./assets/background_picture.jpg);
+    filter:brightness(85%)
+}
+
+.hufs-dark-img {
+    background-image: url(./assets/night_background.jpg);
+    filter: brightness(120%);
+}
+
+.bg-change-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    @extend %glass-card;
+    border-radius: 5px;
+    color: white;
+    font-family: 'hufs-font-m';
+    width: 80px;
+    height: 40px;
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+.bg-change-btn:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+        transform: translateY(-1px);
+    }

@@ -1,10 +1,10 @@
 // 글래스모피즘 변수 저장
 %glass-card {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 
     0 8px 32px rgba(0, 0, 0, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.5),
@@ -44,15 +44,125 @@
   );
 }
 
-%from-edge {
-  top: 20px;
-  left: 20px;
+@font-face{
+  font-family:'hufs-font-m';
+  src : url(../../../public/한국외대체M.ttf)
 }
+
+// 가장자리부터의 기본 거리
+$from-edge: 20px;
 
 .Notice-table-container {
     position: fixed;
-    @extend %from-edge;
+    bottom: $from-edge;
+    left: $from-edge;
     @extend %glass-card;
-    width: 300px;
-    height: 200px;
+    background-color: rgba(0,0,0,0.1);
+    width: 32%;
+    min-width: 320px;
+    height: 550px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding: 10px;
+    padding-right: 0;
+    color: white;
+    font-weight: 300;
+    transition: all 0.5s ease;
+    font-family: 'hufs-font-m';
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), 
+               0 4px 8px rgba(0, 0, 0, 0.2);
+
+    .notice-header{
+      font-size: 22px;
+      padding: 15px;
+      padding-left: 20px;
+      padding-bottom: 0;
+      margin-bottom: 15px;
+    }
+    .notice-table{
+      width: 100%;
+      table-layout: fixed;
+      border-collapse: collapse;
+    }
 }   
+
+.notice-table-row{
+    vertical-align: middle;
+    height: 50px;
+    width: 100%;
+    position: relative;
+    cursor: pointer;
+    font-size: 17px;
+
+    // 아래 구분선 추가
+    ::after {
+      content: '';
+      display: block;
+      position: absolute;
+      right: 0;
+      left: 0;
+      bottom: 0;
+      margin: auto;
+      height: 1px;
+      width: 95%;    
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .notice-table-date{
+      width: 15%;
+      height: 100%;
+      text-align: center;
+      padding: 5px;
+      vertical-align: middle;
+      margin-right: 5px;
+      border-radius: 5px 0 0 5px;
+    }
+    
+    .notice-table-title{
+      width: 80%;
+      padding: 10px;
+      text-align: left;
+      align-content: center;
+      vertical-align: middle;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      border-radius: 0 5px 5px 0;
+    }
+}
+
+.notice-table-row:hover td{
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-1px);
+    transition: all 0.5s ease;
+}
+
+// ========공지사항 스크롤바설정========
+.Notice-table-container::-webkit-scrollbar {
+    width: 8px;
+    height: 0px;
+    background-color: transparent;
+}
+
+.Notice-table-container::-webkit-scrollbar-track{
+    background: transparent;
+    margin: 20px 20px 20px 20px;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.Notice-table-container::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 4px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);  /* 부드러운 모션 곡선으로 변경 */
+}
+
+.Notice-table-container::-webkit-scrollbar-track:hover ~ ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.Notice-table-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);  /* hover 시에는 더 빠른 반응 */
+}

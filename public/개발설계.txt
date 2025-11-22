@@ -3,8 +3,7 @@
 메인페이지: 공지사항, 학식, 핫링크, 종강날짜, 오늘의 한 마디
 서브페이지: 도서관여석, 날씨, 랜덤메뉴, 건의기능
 
-
-크롬익스텐션 -> URL 로 직접이동하는 것이 아니기 때문에 HashRouter 사용
+크롬익스텐션 -> URL 로 직접이동하는 것이 아니기 때문에 HashRouter 사용 -> 폐기
 Redux-Toolkit 대신 -> Zustand 사용해볼 것
 Chrome Local storage 를 통해 개인설정 관리 -> 비동기이므로 zustand 로 데이터를 불러온 후, 값이 확인되면 화면을 불러오도록 설정
 
@@ -14,10 +13,11 @@ React-compiler 이용해 메모이제이션 자동화
 리액트 쿼리 이용해 캐싱, 안정화
 
 API요청 주소: https://hufs-clock-api.vercel.app/api/data
-Vercel로 서버를 구축해 get 요청하는 방식으로 사용
+Vercel로 서버를 구축해 get 요청(React-Query)하는 방식으로 사용
 
-일관성 있는 css 관리를 위해 SASS 사용
-부드러운 화면전환 -> swiper.js
+일관성 있는 css 관리를 위해 SASS 사용 -> Vite 가 자동으로 컴파일해줌 
+부드러운 화면전환 -> swiper.js 
+->스와이퍼가 다른 컴포넌트들의 스와이핑 액션을 가로채어 다른 컴포넌트들이 스크롤되지 않는 문제가 있음. ->useStopSwiper 커스텀 훅
 
 대략 구조도
 my-university-clock/

@@ -1,34 +1,23 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.scss'
 import backgroundImage from "./assets/background_picture.jpg";
+import backgroundDark from "./assets/night_background.jpg"
 import MainPage from './pages/MainPage';
 import { Swiper, SwiperSlide} from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Mousewheel, Pagination } from 'swiper/modules';
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+import useSettingStore from './store/useSettingStore';
 
 function App() {
 
-    const API_ENDPOINT = 'https://hufs-clock-api.vercel.app/api/data';
-
-
-    const { data } = useQuery({
-    queryKey: ['testData'], // 👈 이 이름으로 저장됩니다.
-    queryFn: () => axios.get(API_ENDPOINT).then(res => res.data),
-    staleTime: 1000 * 60 * 5, // 5분간 캐싱
-  });
-
-  console.log('Fetched data:', data);
-
-
-
+  const {isDarkMode, changeBg} = useSettingStore()
+  const bgClass = isDarkMode ? 'hufs-dark-img' : 'hufs-bright-img';
+  
   return (
     // 메인 배경 사진 설정
     <div className="app-container">
-      <div className='main-background-image-container'
-      style={{backgroundImage : `url(${backgroundImage})`}}>
+      <div className={`main-background-image-container ${bgClass}`}>
       </div>
 
       {/* Swiper.js 설정 */}
@@ -41,14 +30,16 @@ function App() {
         modules={[Mousewheel, Pagination]}
         className="mySwiper"
         style={{ height: '100%' }}  // 높이 꽉 채우기
-        allowTouchMove={true} // 드래그 넘기기 비활성화
+        allowTouchMove={false} // 드래그 넘기기 비활성화
       >
 
 
 
     {/* 메인 페이지 섹션 */}
     <SwiperSlide>
-      <section className="main-page-section">
+
+      <section className="main-page-section">      
+        <button className="bg-change-btn" onClick={()=>{changeBg()}}>다크모드</button>
         <MainPage/>
       </section>
     </SwiperSlide>
@@ -60,8 +51,6 @@ function App() {
       </section>
     </SwiperSlide>
     </Swiper>
-
-
 
     </div>
   )
