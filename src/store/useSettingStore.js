@@ -48,10 +48,13 @@ const useSettingStore = create(
       isDarkMode: false,
       selectedCampus: null,
       userName: null,
+      enterYear : null,
 
       // --- Actions ---
       setCampus: (campusKey) => set({ selectedCampus: campusKey }),
       resetCampus: () => set({ selectedCampus: null }),
+      setName : (nameKey) => set({ userName : nameKey}),
+      setYear : (yearKey) => set({ enterYear : yearKey}),
       changeBg: () => set((state) => ({ isDarkMode: !state.isDarkMode })),
     }),
     {

@@ -44,6 +44,11 @@
   );
 }
 
+%text-shadow-basic{
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), 
+                  0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
 @font-face{
   font-family:'hufs-font-m';
   src : url(../../../public/한국외대체M.ttf)
@@ -93,6 +98,8 @@ $from-edge: 20px;
     position: relative;
     cursor: pointer;
     font-size: 17px;
+    @extend %text-shadow-basic;
+
 
     // 아래 구분선 추가
     ::after {
@@ -116,6 +123,7 @@ $from-edge: 20px;
       vertical-align: middle;
       margin-right: 5px;
       border-radius: 5px 0 0 5px;
+      @extend %text-shadow-basic;
     }
     
     .notice-table-title{
@@ -128,6 +136,7 @@ $from-edge: 20px;
       overflow: hidden;
       text-overflow: ellipsis;
       border-radius: 0 5px 5px 0;
+      @extend %text-shadow-basic;
     }
 }
 

@@ -22,7 +22,7 @@ function App() {
 
   
   let bgImage = null;
-  
+
   if (currentConfig.name == '글로벌캠퍼스'){
     if (isDarkMode) {
       bgImage = 'hufs-global-dark'
@@ -36,7 +36,6 @@ function App() {
       bgImage = 'hufs-bright-img'
     }
   }
-
 
   return (
     // 메인 배경 사진 설정
