@@ -108,6 +108,14 @@ html, body {
     filter: brightness(120%);
 }
 
+.hufs-global-bright {
+  background-image: url(./assets/글캠\ 낮사진.jpg);
+}
+
+.hufs-global-dark {
+  background-image: url(./assets/글캠\ 밤사진예쁜거.jpg);
+}
+
 .bg-change-btn {
     position: fixed;
     top: 20px;

@@ -1,6 +1,6 @@
 import './NoticeTable.scss';
 import useData from '../../api/request';
-import useStopSwiper from '../../api/hooks/useStopSwiper';
+import useStopSwiper from '../../hooks/useStopSwiper';
 import { useState } from 'react';
 
 function NoticeTable() {
@@ -14,13 +14,13 @@ function NoticeTable() {
     if (isError) return <div>데이터를 못 가져왔어요ㅜㅜ</div>;
     
     if (notices){
-        console.log('공지사항 크롤링 성공!')
+        console.log('서울캠퍼스 공지사항 크롤링 성공!')
     }
     console.log(data);
 
     return (
         <div className="Notice-table-container" {...stopSwiperHandlers}>
-            <div className='notice-header'>HUFS 공지사항</div>
+            <div className='notice-header'>⦁ 공지사항</div>
             <table className="notice-table">
                 <tbody>
                     {notices.map((notice, idx)=>{

@@ -8,6 +8,7 @@ Redux-Toolkit 대신 -> Zustand 사용해볼 것
 Chrome Local storage 를 통해 개인설정 관리 -> 비동기이므로 zustand 로 데이터를 불러온 후, 값이 확인되면 화면을 불러오도록 설정
 
 열람실 남은 좌석 api 요청 주소: https://lib.hufs.ac.kr/pyxis-api/1/seat-rooms?smufMethodCode=PC&roomTypeId=2&branchGroupId=1
+글캠 열람실 남은 좌석 api 요청 주소: https://lib.hufs.ac.kr/pyxis-api/2/seat-rooms?smufMethodCode=PC&roomTypeId=2&branchGroupId=2
 
 React-compiler 이용해 메모이제이션 자동화
 리액트 쿼리 이용해 캐싱, 안정화
@@ -18,6 +19,11 @@ Vercel로 서버를 구축해 get 요청(React-Query)하는 방식으로 사용
 일관성 있는 css 관리를 위해 SASS 사용 -> Vite 가 자동으로 컴파일해줌 
 부드러운 화면전환 -> swiper.js 
 ->스와이퍼가 다른 컴포넌트들의 스와이핑 액션을 가로채어 다른 컴포넌트들이 스크롤되지 않는 문제가 있음. ->useStopSwiper 커스텀 훅
+
+폰트: 한국외대체M(사실 지마켓 Sans M 이다....)
+
+캠퍼스 선택 (서울 vs 글로벌) -> 
+
 
 대략 구조도
 my-university-clock/
