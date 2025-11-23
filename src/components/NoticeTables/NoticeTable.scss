@@ -59,13 +59,13 @@ $from-edge: 20px;
 
 .Notice-table-container {
     position: fixed;
-    bottom: $from-edge;
+    bottom: 180px;
     left: $from-edge;
     @extend %glass-card;
     background-color: rgba(0,0,0,0.15);
     width: 32%;
     min-width: 320px;
-    height: 300px;
+    height: 400px;
     overflow-y: scroll;
     overflow-x: hidden;
     padding: 10px;
@@ -79,10 +79,10 @@ $from-edge: 20px;
 
     .notice-header{
       font-size: 22px;
-      padding: 15px;
+      padding: 13px;
       padding-left: 20px;
       padding-bottom: 0;
-      margin-bottom: 15px;
+      margin-bottom: 0;
     }
     .notice-table{
       width: 100%;

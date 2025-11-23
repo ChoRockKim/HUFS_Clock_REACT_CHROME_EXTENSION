@@ -1,0 +1,29 @@
+@font-face{
+  font-family:'hufs-font-m';
+  src : url(../../../public/한국외대체M.ttf)
+}
+
+.countdown-box {
+    position: fixed;
+    display: block;
+    left: 20px;
+    bottom: 20px;
+    color: white;
+    font-family: 'hufs-font-m';
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), 
+               0 4px 8px rgba(0, 0, 0, 0.2);
+    h2 {
+        font-size: 35px;
+        margin-bottom: 10px;
+        margin-left: 10px;
+    }
+}
+
+.time-container {
+    font-size: 70px;
+}
+
+.time-emphasize {
+    font-size: 40px;
+    margin-right: 20px;
+}

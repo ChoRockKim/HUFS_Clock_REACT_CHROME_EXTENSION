@@ -105,7 +105,7 @@ html, body {
 
 .hufs-dark-img {
     background-image: url(./assets/night_background.jpg);
-    filter: brightness(120%);
+    filter: brightness(100%);
 }
 
 .hufs-global-bright {
@@ -130,11 +130,11 @@ html, body {
     text-align: center;
     align-content: center;
     cursor: pointer;
-    transition: all 0.5s ease;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), 
-            0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.25s ease;
+    // box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), 
+    //         0 4px 8px rgba(0, 0, 0, 0.2);
 }
 .bg-change-btn:hover {
         background-color: rgba(255, 255, 255, 0.2);
-        transform: translateY(-1px);
+        transform: translateY(-2px);
     }

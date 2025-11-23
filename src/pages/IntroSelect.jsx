@@ -9,7 +9,7 @@ function IntroSelect() {
         <div className="logo-image"></div>
         <h1 className="main-title">외대 종강시계</h1>
         <h1 style={{zIndex: '5'}}>환영합니다!👋</h1> 
-        <p style={{zIndex:'5'}}>소속 캠퍼스를 선택해주세요.</p>
+        <p style={{zIndex:'5', fontSize:'22px'}}>소속 캠퍼스를 선택해주세요.</p>
       
       <div className="campus-select-container">
         <button className="campus-select-btn"
