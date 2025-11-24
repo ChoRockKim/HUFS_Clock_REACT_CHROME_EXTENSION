@@ -10,7 +10,6 @@ function CountDown({ targetDate, curSemester }) {
     const timer = setInterval(() => {
       setTimeLeft(calculateTimeLeft(targetDate));
     }, 1000);
-    console.log('타겟데이터이미ㅣㅣㅣㅣㅣㅣㅣ', targetDate.getMonth()+1, targetDate.getDate())
     // 3. 컴포넌트 사라질 때 타이머 청소 (메모리 누수 방지)
     return () => clearInterval(timer);
   }, [targetDate]);

@@ -1,0 +1,114 @@
+// 글래스모피즘 변수 저장
+%glass-card {
+  background: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 0 0px 0px rgba(255, 255, 255, 0);
+  position: relative;
+  overflow: hidden;
+}
+
+%glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.8),
+    transparent
+  );
+}
+
+%glass-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.8),
+    transparent,
+    rgba(255, 255, 255, 0.3)
+  );
+}
+
+@font-face{
+  font-family:'hufs-font-m';
+  src : url(../../../public/한국외대체M.ttf)
+}
+
+.mealtable-container {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    right: 20px;
+    top: 80px;
+    @extend %glass-card;
+    width: 350px;
+    height: 380px;
+    color: white;
+    padding: 15px;
+    font-family: 'hufs-font-m';
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), 
+               0 4px 8px rgba(0, 0, 0, 0.2);
+
+    visibility: hidden;
+    transform: translateX(400px) scale(0.5);
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    .mealtable-header {
+        font-size: 18px;
+        padding: 5px;
+        margin-bottom: 5px;
+    }
+}
+
+.meal-datas {
+    margin-bottom: 10px;
+    padding: 5px;
+    position: relative;
+
+    // 아래 구분선 추가
+    ::after {
+      content: '';
+      display: block;
+      position: absolute;
+      right: 0;
+      left: 0;
+      bottom: 0;
+      margin: auto;
+      height: 1px;
+      width: 95%;    
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+    
+    .meal-time {
+        font-size: 15px;
+        margin-bottom: 5px;
+        padding-left: 3px;
+    }
+    .meal-menu {
+        font-size: 18px;
+
+        span {
+            font-size: 15px;
+        }
+    }
+}
+
+.appear {
+    transform: translateX(0);
+    visibility: visible;
+}

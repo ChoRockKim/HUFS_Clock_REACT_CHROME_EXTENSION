@@ -49,7 +49,7 @@ function App() {
         slidesPerView={1}           // 한 번에 하나만 보여줌
         spaceBetween={0}            // 간격 없음
         mousewheel={true}           // 마우스 휠로 넘기기 가능
-        speed={1000}                // 넘어가는 속도 (1초 동안 천천히)
+        speed={500}                // 넘어가는 속도 (1초 동안 천천히)
         modules={[Mousewheel, Pagination]}
         className="mySwiper"
         style={{ height: '100%' }}  // 높이 꽉 채우기

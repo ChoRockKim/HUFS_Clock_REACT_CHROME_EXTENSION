@@ -21,9 +21,26 @@
 
 .time-container {
     font-size: 70px;
+    transition: all 0.5s ease;
 }
 
 .time-emphasize {
     font-size: 40px;
     margin-right: 20px;
+}
+
+
+@media screen and (max-width: 1023px) {
+    .time-container {
+        font-size: 55px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .time-container {
+        font-size: 50px;
+    }
+    .time-emphasize {
+        font-size: 30px;
+    }
 }

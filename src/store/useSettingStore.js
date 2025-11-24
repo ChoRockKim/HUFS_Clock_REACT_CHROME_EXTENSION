@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 
-// 👇 [핵심] 똑똑한 저장소 어댑터 (환경에 따라 자동 전환)
+// (환경에 따라 자동 전환)
 const smartStorageAdapter = {
   
   getItem: async (name) => {
@@ -59,7 +59,7 @@ const useSettingStore = create(
     }),
     {
       name: 'hufs-clock-settings', // 저장될 키 이름
-      storage: createJSONStorage(() => smartStorageAdapter), // 👈 스마트 어댑터 연결
+      storage: createJSONStorage(() => smartStorageAdapter), // 어댑터 연결
     }
   )
 );

@@ -16,5 +16,6 @@ export default function useData() {
         queryKey: ['schoolData'], // 
         queryFn: fetchSchoolData,
         staleTime: 1000 * 60 * 5, // 5분간 캐싱
+        // staleTime: 0,
     });
 }
