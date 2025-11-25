@@ -1,6 +1,6 @@
 // 글래스모피즘 변수 저장
 %glass-card {
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.35);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   border-radius: 20px;
@@ -69,10 +69,12 @@
 .setting-header {
     font-size: 20px;
     margin-bottom: 10px;
+    font-family: 'hufs-font-m';
 }
 
 .setting-please {
     margin-bottom: 20px;
+    font-family: 'hufs-font-m';
 }
 
 #input-name {
@@ -140,6 +142,7 @@
     margin: 0;
     border-radius: 5px;
     padding:3px;
+    font-family: 'hufs-font-m';
     
     li {
         display: block;
@@ -149,6 +152,7 @@
         cursor: pointer;
         height: 25px;
         padding: 5px;
+        font-family: 'hufs-font-m';
     }
     li:hover {
         background-color: rgba(255, 255, 255, 0.5);
@@ -190,6 +194,7 @@ margin: 2px;
 .setting-campus{
     align-content: center;
     width: 100px;
+    font-family: 'hufs-font-m';
 }
 
 .setting-campus-container {

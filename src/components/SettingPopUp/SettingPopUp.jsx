@@ -57,6 +57,9 @@ export default function SettingPopUp({ settingOn }) {
                 <button type='submit' onClick={(e)=>{
                     e.preventDefault()
                     if (name == '') {alert('이름을 입력해주세요'); return}
+                    if (name.length >10) {alert('이름이 너무 길어요!'); 
+                        setName(''); return
+                    }
                     setNameCash(name);
                     setYearCash(enrollNum);
                     setName('') 

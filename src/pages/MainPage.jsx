@@ -5,6 +5,7 @@ import MealTable from '../components/MealTable/MealTable';
 import './MainPage.scss'
 import { useState } from 'react';
 import SettingPopUp from '../components/SettingPopUp/SettingPopUp';
+import TodaySentence from '../components/TodaySentence/TodaySentence';
 
 function MainPage() {
     let [mealOn, setMealOn] = useState(false)
@@ -12,6 +13,7 @@ function MainPage() {
 
     return (
     <>
+        <TodaySentence/>
         <Noticetable/>
         <CurrentTime/>
         <LeftTime/>

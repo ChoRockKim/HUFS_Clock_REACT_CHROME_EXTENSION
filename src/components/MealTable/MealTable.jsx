@@ -10,8 +10,8 @@ export default function MealTable({ mealOn }) {
     
     const mealTableStyle = selectedCampus === "GLOBAL" ? { height: 'auto' } : {};
 
-    if (isLoading) return <div>로딩 중...🐢</div>;
-    if (isError) return <div>데이터를 못 가져왔어요ㅜㅜ</div>;
+    if (isLoading) return <div></div>;
+    if (isError) return <div></div>;
     if (!data) return null;
 
     const meals = data?.meals;

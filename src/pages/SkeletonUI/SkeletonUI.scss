@@ -1,0 +1,150 @@
+/* index.scss */
+
+/* 1. 스켈레톤 기본 박스 */
+.skeleton {
+  background-color: rgba(255, 255, 255, 0.5); /* 기본 회색 */
+  border-radius: 10px;        /* 살짝 둥글게 */
+  
+  /* 👇 마법의 애니메이션 설정 */
+  position: relative;
+  overflow: hidden;
+}
+
+/* 2. 빛이 지나가는 효과 (가상요소) */
+.skeleton::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  
+  /* 그라데이션: 회색 -> 흰색(빛) -> 회색 */
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.2) 50%, /* 투명도 조절로 빛 밝기 조절 */
+    rgba(255, 255, 255, 0) 100%
+  );
+  
+  /* 애니메이션 실행 */
+  transform: translateX(-100%); /* 왼쪽 끝에서 시작 */
+  animation: shimmer 1.5s infinite; /* 1.5초마다 무한 반복 */
+}
+
+/* 3. 움직임 정의 */
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%); /* 오른쪽 끝으로 이동 */
+  }
+}
+
+/* 다크모드 대응 (선택사항) */
+body.dark-mode .skeleton {
+  background-color: #2c2c2c; /* 다크모드에선 어두운 회색 */
+}
+body.dark-mode .skeleton::after {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.05) 50%, /* 빛을 더 약하게 */
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+// 글래스모피즘 변수 저장
+%glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 0 0px 0px rgba(255, 255, 255, 0);
+  position: relative;
+  overflow: hidden;
+}
+
+%glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.8),
+    transparent
+  );
+}
+
+%glass-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.8),
+    transparent,
+    rgba(255, 255, 255, 0.3)
+  );
+}
+
+.Notice-table-container-skeleton {
+    position: fixed;
+    bottom: 180px;
+    left: 20px;
+    @extend %glass-card;
+    background-color: rgba(0,0,0,0.15);
+    width: 32%;
+    min-width: 320px;
+    height: 400px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding: 10px;
+    padding-right: 0;
+    color: white;
+    font-weight: 300;
+    transition: all 0.5s ease;
+    font-family: 'hufs-font-m';
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), 
+               0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+// ========공지사항 스크롤바설정========
+.Notice-table-container-skeleton::-webkit-scrollbar {
+    width: 8px;
+    height: 0px;
+    background-color: transparent;
+}
+
+.Notice-table-container-skeleton::-webkit-scrollbar-track{
+    background: transparent;
+    margin: 20px 20px 20px 20px;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.Notice-table-container-skeleton::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 4px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);  /* 부드러운 모션 곡선으로 변경 */
+}
+
+.Notice-table-container-skeleton::-webkit-scrollbar-track:hover ~ ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.Notice-table-container-skeleton::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);  /* hover 시에는 더 빠른 반응 */
+}

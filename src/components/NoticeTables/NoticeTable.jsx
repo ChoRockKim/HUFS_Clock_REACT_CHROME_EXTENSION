@@ -2,6 +2,7 @@ import './NoticeTable.scss';
 import useData from '../../api/request';
 import useStopSwiper from '../../hooks/useStopSwiper';
 import { useState } from 'react';
+import SkeletonUI from '../../pages/SkeletonUI/SkeletonUI';
 
 function NoticeTable() {
 
@@ -11,8 +12,8 @@ function NoticeTable() {
     const stopSwiperHandlers = useStopSwiper();
     let [isScroll, setIsScroll] = useState(false);
 
-    if (isLoading) return <div>로딩 중...🐢</div>;
-    if (isError) return <div>데이터를 못 가져왔어요ㅜㅜ</div>;
+    if (isLoading) return <div><SkeletonUI/></div>;
+    if (isError) return <div><SkeletonUI/></div>;
     
     if (notices){
         console.log('서울캠퍼스 공지사항 크롤링 성공!')

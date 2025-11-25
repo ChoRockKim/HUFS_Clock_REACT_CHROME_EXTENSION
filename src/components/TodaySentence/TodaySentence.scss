@@ -1,0 +1,20 @@
+@font-face{
+  font-family:'hufs-font-m';
+  src : url(../../../public/한국외대체M.ttf)
+}
+
+.today-sentence {
+    color: white;
+    position: fixed;
+    top: 20px;
+    width: 500px;
+    margin: auto;
+    right: 0;
+    left: 0;
+    text-align: center;
+    font-size: 15px;
+    opacity: 0.8;
+    font-family: 'hufs-font-m';
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), 
+               0 4px 8px rgba(0, 0, 0, 0.2);
+}
