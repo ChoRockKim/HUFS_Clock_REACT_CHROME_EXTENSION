@@ -5,6 +5,7 @@ import { useState } from 'react';
 
 function NoticeTable() {
 
+
     const { data, isError, isLoading } = useData();
     const notices = data?.notices || [];
     const stopSwiperHandlers = useStopSwiper();

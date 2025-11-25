@@ -53,8 +53,8 @@ const useSettingStore = create(
       // --- Actions ---
       setCampus: (campusKey) => set({ selectedCampus: campusKey }),
       resetCampus: () => set({ selectedCampus: null }),
-      setName : (nameKey) => set({ userName : nameKey}),
-      setYear : (yearKey) => set({ enterYear : yearKey}),
+      setNameCash : (nameKey) => set({ userName : nameKey}),
+      setYearCash : (yearKey) => set({ enterYear : yearKey}),
       changeBg: () => set((state) => ({ isDarkMode: !state.isDarkMode })),
     }),
     {

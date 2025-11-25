@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react'
 import './App.scss'
-import backgroundImage from "./assets/background_picture.jpg";
-import backgroundDark from "./assets/night_background.jpg"
 import MainPage from './pages/MainPage';
 import { Swiper, SwiperSlide} from 'swiper/react';
 import 'swiper/css';

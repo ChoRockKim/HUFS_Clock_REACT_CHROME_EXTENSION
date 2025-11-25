@@ -1,10 +1,14 @@
 import useData from "../../api/request"
 import './MealTable.scss'
 import useStopSwiper from "../../hooks/useStopSwiper";
+import useSettingStore from "../../store/useSettingStore";
 
 export default function MealTable({ mealOn }) {
+    const { selectedCampus } = useSettingStore();
     const { data, isError, isLoading } = useData();
     const stopSwiperHandlers = useStopSwiper();
+    
+    const mealTableStyle = selectedCampus === "GLOBAL" ? { height: 'auto' } : {};
 
     if (isLoading) return <div>로딩 중...🐢</div>;
     if (isError) return <div>데이터를 못 가져왔어요ㅜㅜ</div>;
@@ -13,16 +17,11 @@ export default function MealTable({ mealOn }) {
     const meals = data?.meals;
     const today = new Date()
     const todayDay = Number(today.getDay())
-    let mealClass = ''
-    if (mealOn) {
-        mealClass="appear"
-    } else {
-        mealClass=''
-    }
+    const mealClass = mealOn ? "appear" : ""
 
     return(
         
-        <div className={`mealtable-container ${mealClass}`} {...stopSwiperHandlers}>
+        <div className={`mealtable-container ${mealClass}`} {...stopSwiperHandlers} style={mealTableStyle}>
             <div className="mealtable-header">🍽️ 오늘의 학식</div>
             {meals.map((data, idx)=>{
                 return <MealData meals={meals} idx={idx} key={idx} todayDay={todayDay}/>
