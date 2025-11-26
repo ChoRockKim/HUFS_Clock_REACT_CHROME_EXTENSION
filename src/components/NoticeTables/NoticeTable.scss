@@ -63,7 +63,7 @@ $from-edge: 20px;
     left: $from-edge;
     @extend %glass-card;
     background-color: rgba(0,0,0,0.15);
-    width: 32%;
+    width: 30%;
     min-width: 320px;
     height: 400px;
     overflow-y: scroll;
@@ -116,7 +116,7 @@ $from-edge: 20px;
     }
 
     .notice-table-date{
-      width: 15%;
+      width: 12%;
       height: 100%;
       text-align: center;
       padding: 5px;
@@ -127,7 +127,7 @@ $from-edge: 20px;
     }
     
     .notice-table-title{
-      width: 80%;
+      width: 78%;
       padding: 10px;
       text-align: left;
       align-content: center;

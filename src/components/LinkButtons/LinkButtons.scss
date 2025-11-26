@@ -1,0 +1,153 @@
+%glass-card {
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 0 0px 0px rgba(255, 255, 255, 0);
+  position: relative;
+  overflow: hidden;
+}
+
+%glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.8),
+    transparent
+  );
+}
+
+%glass-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.8),
+    transparent,
+    rgba(255, 255, 255, 0.3)
+  );
+}
+
+@font-face{
+  font-family:'hufs-font-m';
+  src : url(../../../public/한국외대체M.ttf)
+}
+
+.link-total-container {
+    width: 400px;
+    height: 300px;
+    position: fixed;
+    right: 0;   
+    top: 50%;
+    bottom: 50%;
+    transform: translateY(-50%) translateX(340px);
+    display: flex;
+    transition: all 0.4s;
+    transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1);
+}
+
+.toggle-appear-box {
+    width: 20%;
+    height: 100%;
+    position: absolute;
+}
+
+.toggle-arrow {
+    @extend %glass-card;
+    background: rgba(0, 0, 0, 0.3);
+    width: 50%;
+    height: 60px;
+    position: absolute;    
+    color: white;
+    align-content: center;
+    padding-left: 3px;
+    font-size: 20px;
+    border-radius: 10px 0 0 10px;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 1;
+}
+
+.link-btn-container {
+    @extend %glass-card;
+    position: absolute;
+    right: 0;
+    width: 80%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.3);
+    border-radius: 10px;
+    padding: 15px;
+    color: white;
+    font-family: 'hufs-font-m';
+}
+
+.appear-toggle {
+    transform: translateY(-50%) translateX(0);
+
+}
+
+.remove-toggle {
+    opacity: 0;
+}
+
+.toggle-on {
+    transform: translateY(-50%) translateX(325px);
+}
+
+.link-btn-header {
+    font-size: 18px;
+    margin-top: 0;
+}
+
+.link-btn-area {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.link-btn-box {
+  position: relative;
+  box-shadow: none;
+  background-color: rgba(0,0,0,0.3);
+  border-radius: 10px;
+  width: 45%;
+  height: 50px;
+  margin-bottom: 10px;
+  padding: 10px;
+  text-align: center;
+  align-content: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), 
+                0 4px 8px rgba(0, 0, 0, 0.2);
+  font-size: 16px;
+}
+
+.link-btn-box:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.custom-btn-container {
+  position: absolute;
+  top: 0;
+  width: 200px;
+  height: 100px;
+  background-color: red;
+}

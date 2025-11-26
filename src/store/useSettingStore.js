@@ -49,8 +49,60 @@ const useSettingStore = create(
       selectedCampus: null,
       userName: null,
       enterYear : null,
+      userLink : [{ id : 0,
+                    hotLinkName : '🏛️ 홈페이지',
+                    hotLink :'https://www.hufs.ac.kr',
+                    custom : false},
+                  { id : 1,
+                    hotLinkName : '✏️ E-class',
+                    hotLink :'https://eclass.hufs.ac.kr',
+                    custom : false},
+                  { id : 2,
+                    hotLinkName : '📖 종정시',
+                    hotLink : 'https://wis.hufs.ac.kr',
+                    custom : false},
+                  { id : 3,
+                    hotLinkName : '🏢 Ability',
+                    hotLink :'https://hufsability.hufs.ac.kr',
+                    custom : false},
+                  { id : 4,
+                    hotLinkName: '북마크 추가',
+                    hotLink : '',
+                    custom: true
+                  },
+                  { id : 5,
+                    hotLinkName: '북마크 추가',
+                    hotLink : '',
+                    custom : true
+                  },
+                  { id : 6,
+                    hotLinkName: '북마크 추가',
+                    hotLink : '',
+                    custom: true
+                  },
+                  { id : 7,
+                    hotLinkName: '북마크 추가',
+                    hotLink : '',
+                    custom : true
+                  }],
 
       // --- Actions ---
+      updateUserLink: (updatedLink) =>
+        set((state) => ({
+          userLink: state.userLink.map((link) =>
+            link.id === updatedLink.id ? { ...link, ...updatedLink } : link
+          ),
+        })),
+
+      removeUserLink: (linkIdToRemove) =>
+        set((state) => ({
+          userLink: state.userLink.map((link) =>
+            link.id === linkIdToRemove
+              ? { ...link, hotLinkName: '북마크 추가', hotLink: '', custom: true }
+              : link
+          ),
+        })),
+
       setCampus: (campusKey) => set({ selectedCampus: campusKey }),
       resetCampus: () => set({ selectedCampus: null }),
       setNameCash : (nameKey) => set({ userName : nameKey}),

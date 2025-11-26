@@ -10,9 +10,9 @@ export default function SkeletonUI() {
         <div style={{display:'flex', flexDirection:'column',
             height: '80%%', justifyContent: 'space-evenly'
         }}>
-            {[1,2,3,4,5].map(()=>{
+            {[1,2,3,4,5].map((idx)=>{
                 return(
-                <div className='skeleton' style={{width:'100%', height:'50px',
+                <div key={idx} className='skeleton' style={{width:'100%', height:'50px',
                 marginBottom:'10px'
             }}></div>
                 )

@@ -6,6 +6,7 @@ import './MainPage.scss'
 import { useState } from 'react';
 import SettingPopUp from '../components/SettingPopUp/SettingPopUp';
 import TodaySentence from '../components/TodaySentence/TodaySentence';
+import LinkButtons from '../components/LinkButtons/LinkButtons';
 
 function MainPage() {
     let [mealOn, setMealOn] = useState(false)
@@ -17,6 +18,7 @@ function MainPage() {
         <Noticetable/>
         <CurrentTime/>
         <LeftTime/>
+        <LinkButtons/>
         <button onClick={()=>{
             setMealOn(!mealOn)
         }}
