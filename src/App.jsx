@@ -9,6 +9,7 @@ import useSettingStore from './store/useSettingStore';
 import IntroSelect from './pages/IntroSelect';
 import { CAMPUS_DATA } from './constants/campusConfig';
 
+
 function App() {
 
   const {selectedCampus, isDarkMode, changeBg} = useSettingStore()

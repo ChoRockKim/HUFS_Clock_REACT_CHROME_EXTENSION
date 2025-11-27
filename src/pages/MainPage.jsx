@@ -13,7 +13,7 @@ function MainPage() {
     let [settingOn, setSettingOn] = useState(false)
 
     return (
-    <>
+    <div id="main-page-root">
         <TodaySentence/>
         <Noticetable/>
         <CurrentTime/>
@@ -28,7 +28,7 @@ function MainPage() {
         className="setting-btn">설정</button>        
         <SettingPopUp settingOn={settingOn}/>
         <span className='scroll-down'>▼ 아래로 스크롤하면 위젯을 사용할 수 있어요 ▼</span>
-    </>
+    </div>
     )
 }
 
