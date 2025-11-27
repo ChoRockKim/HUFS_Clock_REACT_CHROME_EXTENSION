@@ -6,7 +6,7 @@ import './LeftTime.scss'
 export default function LeftTime() {
     const { data, isError, isLoading } = useData();
 
-    if (isLoading) return <div className="loading-text"></div>;
+    if (isLoading) return <div className="loading-text">불러오는 중....</div>;
     if (isError) return <div className="error-text"></div>;
     if (!data) return null;
 
