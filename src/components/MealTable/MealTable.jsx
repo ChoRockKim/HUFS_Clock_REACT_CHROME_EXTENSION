@@ -31,13 +31,22 @@ export default function MealTable({ mealOn }) {
 }
 
 function MealData({ meals, idx, todayDay }) {
-    let todayMenu = meals[idx].menus[todayDay-1].name;
-    let todayPrice = meals[idx].menus[todayDay-1].price;
+    // 옵셔널 체이닝(?.)을 사용하여 안전하게 오늘의 메뉴 정보에 접근합니다.
+    const menuForToday = meals[idx]?.menus?.[todayDay - 1];
+
+    // 메뉴가 없으면 "운영 정보 없음"을, 가격이 없으면 빈 문자열을 할당합니다.
+    const todayMenu = menuForToday?.name || "운영 정보 없음";
+    const todayPrice = menuForToday?.price || "";
+
     return(
     <>
         <div className="meal-datas">
             <div className="meal-time">⦁ {meals[idx].time}</div>
-            <div className="meal-menu">{todayMenu} <span>({todayPrice})</span></div>
+            <div className="meal-menu">
+                {todayMenu}
+                {/* 가격 정보가 있을 때만 괄호와 함께 표시합니다. */}
+                {todayPrice && <span> ({todayPrice})</span>}
+            </div>
         </div>
         
     </>
