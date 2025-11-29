@@ -12,12 +12,25 @@ import { CAMPUS_DATA } from './constants/campusConfig';
 
 function App() {
 
-  const {selectedCampus, isDarkMode, changeBg} = useSettingStore()
+  const {selectedCampus, isDarkMode, changeBg, resetCampus} = useSettingStore()
+
+  // 로컬 스토리지에 저장된 레거시 데이터(객체)일 경우를 대비하여 campusKey를 안전하게 추출합니다.
+  const campusKey = typeof selectedCampus === 'string' ? selectedCampus : (selectedCampus?.id || null);
+  const currentConfig = campusKey ? CAMPUS_DATA[campusKey] : null;
+
+  useEffect(() => {
+    // 스토리지에서 불러온 캠퍼스 정보가 유효하지 않을 경우, 선택 화면으로 리셋합니다.
+    if (selectedCampus && !currentConfig) {
+      console.warn('저장된 캠퍼스 정보가 유효하지 않아 초기화합니다.');
+      resetCampus();
+    }
+  }, [selectedCampus, currentConfig, resetCampus]);
   
-  if (!selectedCampus) {
+  if (!currentConfig) {
+    // 유효한 캠퍼스 정보가 없을 경우, 초기 선택 화면을 보여줍니다.
     return <IntroSelect />;
   }
-  const currentConfig = CAMPUS_DATA[selectedCampus];
+
 
   
   let bgImage = null;
