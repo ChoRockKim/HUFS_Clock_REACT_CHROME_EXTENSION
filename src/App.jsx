@@ -82,7 +82,7 @@ function App() {
     {/* 서브 페이지 섹션 */}
     <SwiperSlide>
       <section className='sub-page-section'>
-        <div>하이하이하이</div>
+        <div className='update-soon'>종강 이후 업데이트 예정입니다...^_^</div>
       </section>
     </SwiperSlide>
     </Swiper>

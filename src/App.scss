@@ -139,3 +139,19 @@ html, body {
         background-color: rgba(255, 255, 255, 0.2);
         transform: translateY(-2px);
     }
+
+.update-soon {
+  font-family: 'hufs-font-m';
+  color: white;
+  font-size: 25px;
+  width: 400px;
+  display: block;
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  position: fixed;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), 
+          0 4px 8px rgba(0, 0, 0, 0.2);
+}
