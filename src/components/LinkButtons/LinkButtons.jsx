@@ -100,7 +100,7 @@ function ButtonGroup({ data, isCustomOn, setIsCustomOn, targetId, setTargetId })
             }
         }}
         className='link-btn-box'>{data.hotLinkName}
-        {data.custom == true  && 
+        {(data.custom == true && data.hotLink != '')  && 
         <div className='link-remove-btn'
         onClick={(e)=>{
             e.stopPropagation();

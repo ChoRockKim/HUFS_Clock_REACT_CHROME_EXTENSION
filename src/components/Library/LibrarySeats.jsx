@@ -10,16 +10,13 @@ export default function LibrarySeats() {
     if (isLoading) return <div>로딩 중...</div>
     if (isError) return <div>에러 남...</div>
 
-    if (seats) {
-        console.log('도서관 여석 불러오기 성공')
-        console.log(seats)
-    }
+    console.log(seats)
 
     return (
         <>
         <div className='seats-main-container'>
             <div className='seats-title'>
-                <span>⦁ 실시간 열람실 여석</span>
+                <span>⦁ 실시간 열람실 여석</span> 
             </div>
             <div className='seats-list-box'>
             {seats?.map((data, idx)=>{
@@ -36,6 +33,7 @@ export default function LibrarySeats() {
 function SeatLeft({ data, idx, selectedCampus }) {
     
     const seatsAvail = data.seats.available;
+    const seatsOccupied = data.seats.occupied;
     const seatsTotal = data.seats.total;
     let seatsName;
 
@@ -62,7 +60,7 @@ function SeatLeft({ data, idx, selectedCampus }) {
                 id="progress"
                 value={seatsAvail}
                 min="0"
-                max={data.seats.total}/>
+                max={seatsTotal}/>
         </div>
         </>
     )
