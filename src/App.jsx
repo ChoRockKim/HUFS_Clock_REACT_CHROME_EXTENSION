@@ -8,7 +8,7 @@ import { Mousewheel, Pagination } from 'swiper/modules';
 import useSettingStore from './store/useSettingStore';
 import IntroSelect from './pages/IntroSelect';
 import { CAMPUS_DATA } from './constants/campusConfig';
-
+import SubPage1 from './pages/SubPage1';
 
 function App() {
 
@@ -82,7 +82,7 @@ function App() {
     {/* 서브 페이지 섹션 */}
     <SwiperSlide>
       <section className='sub-page-section'>
-        <div className='update-soon'>종강 이후 업데이트 예정입니다...^_^</div>
+        <SubPage1/>
       </section>
     </SwiperSlide>
     </Swiper>

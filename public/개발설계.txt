@@ -1,14 +1,17 @@
 주요기능: 종강날짜, 공지사항, 학식, 도서관여석, 날씨, 핫링크(커스텀), 개발자에게 건의사항 남기기 기능(POST), 메뉴 랜덤 생성기, 오늘의 한 마디
 
 메인페이지: 공지사항, 학식, 핫링크, 종강날짜, 오늘의 한 마디
-서브페이지: 도서관여석, 날씨, 랜덤메뉴, 건의기능 ++++
+서브페이지: 도서관여석, 날씨, 랜덤메뉴, 건의기능, 시간표 추가 기능
 
 크롬익스텐션 -> URL 로 직접이동하는 것이 아니기 때문에 HashRouter 사용 -> 폐기
 Redux-Toolkit 대신 -> Zustand 사용해볼 것
 Chrome Local storage 를 통해 개인설정 관리 -> 비동기이므로 zustand 로 데이터를 불러온 후, 값이 확인되면 화면을 불러오도록 설정
 
-열람실 남은 좌석 api 요청 주소: https://lib.hufs.ac.kr/pyxis-api/1/seat-rooms?smufMethodCode=PC&roomTypeId=2&branchGroupId=1
-글캠 열람실 남은 좌석 api 요청 주소: https://lib.hufs.ac.kr/pyxis-api/2/seat-rooms?smufMethodCode=PC&roomTypeId=2&branchGroupId=2
+서울 캠퍼스 열람실 남은 좌석 api 요청 주소: https://lib.hufs.ac.kr/pyxis-api/1/seat-rooms?smufMethodCode=PC&roomTypeId=2&branchGroupId=1
+글로벌 캠퍼스 열람실 남은 좌석 api 요청 주소: https://lib.hufs.ac.kr/pyxis-api/2/seat-rooms?smufMethodCode=PC&roomTypeId=2&branchGroupId=2
+설캠 열람실: 5개
+글캠 열람실: 1, 2, 3A, 3B
+
 
 React-compiler 이용해 메모이제이션 자동화
 리액트 쿼리 이용해 캐싱, 안정화
@@ -22,8 +25,18 @@ Vercel로 서버를 구축해 get 요청(React-Query)하는 방식으로 사용
 
 폰트: 한국외대체M(사실 지마켓 Sans M 이다....)
 
-캠퍼스 선택 (서울 vs 글로벌) -> 
+캠퍼스 선택 (서울 vs 글로벌) 
 
+기상청 API 좌표변환
+- 서울캠퍼스: (61, 127)
+- 글로벌캠퍼스: (65, 122)
+- 엔드포인트: http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst
+- 구현한 API 엔드포인트: https://hufs-clock-api.vercel.app/api/weather?campus=SEOUL
+
+강수형태(PTY): (단기) 없음(0), 비(1), 비/눈(2), 눈(3), 소나기(4) 
+하늘상태(SKY): 맑음(1), 구름많음(3), 흐림(4)
+TMN : 최저기온
+TMX : 최고기온
 
 대략 구조도
 my-university-clock/

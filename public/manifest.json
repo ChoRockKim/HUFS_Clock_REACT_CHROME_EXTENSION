@@ -1,8 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "HUFS 종강시계 v2",
-  "description": "한국외대 종강 D-Day, 학식, 공지사항을 새 탭에서 바로 확인하세요.",
-  "version": "1.0.0",
+  "name": "HUFS 종강시계",
+  "description": "한국외대 종강 까지 남은 시간을 보여주는 확장 프로그램입니다. 새 탭을 켜보세요!",
+  "version": "2.0.0",
+  "offline_enabled": true,
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
