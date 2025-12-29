@@ -46,7 +46,7 @@
 .widget-main-container {
     width: 70vw;
     min-width: 880px;
-    height: 550px;
+    height: 500px;
     margin: auto;
     position: fixed;
     left: 0;
@@ -54,6 +54,7 @@
     top: 50%;
     transform: translateY(-50%);
     background-color: rgba(44, 34, 34, 0.3);
+    border-radius: 20px;
     display: flex;
     flex-direction: row;
 }

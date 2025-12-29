@@ -1,0 +1,112 @@
+// 글래스모피즘 변수 저장
+%glass-card {
+  background: rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 0 0px 0px rgba(255, 255, 255, 0);
+  position: relative;
+  overflow: hidden;
+}
+
+%glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.8),
+    transparent
+  );
+}
+
+%glass-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.8),
+    transparent,
+    rgba(255, 255, 255, 0.3)
+  );
+}
+
+%text-shadow-basic{
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), 
+                  0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+@font-face{
+  font-family:'hufs-font-m';
+  src : url(../../../public/한국외대체M.ttf)
+}
+
+.weather-main-container {
+    width: 90%;
+    height: 120px;
+    @extend %glass-card;
+    @extend %text-shadow-basic;
+    font-family: 'hufs-font-m';
+    color: white;
+    margin-top: 10px;
+    padding: 20px;
+    background-color: rgba(75, 149, 178, 0.201);
+    display: flex;
+    flex-direction: row;
+
+    .left-side {
+        width: 60%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .right-side {
+        width:40%;
+        height: 100%;
+        text-align: right;
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+    }
+}
+
+.cur-temp {
+    font-size: 25px;
+
+    span {
+        font-size: 30px;
+    }
+}
+
+.place-where {
+    font-size: 15px;
+
+}
+
+.cur-sky {
+    font-size: 15px;
+}
+
+.min-max-temp {
+    font-size: 14px;
+}
+
+.humid-info {
+    font-size: 14px;
+    margin-top: 8px;
+}
