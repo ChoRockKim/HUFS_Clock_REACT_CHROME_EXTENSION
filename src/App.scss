@@ -100,8 +100,8 @@ html, body {
 }
 
 .hufs-bright-img {
-    background-image: url(./assets/background_picture.jpg);
-    filter:brightness(85%)
+    background-image: url(./assets/seoul_snow.jpg);
+    filter:brightness(80%)
 }
 
 .hufs-dark-img {
@@ -110,7 +110,8 @@ html, body {
 }
 
 .hufs-global-bright {
-  background-image: url(./assets/글캠\ 낮사진.jpg);
+  background-image: url(./assets/global_snow.jpg);
+  filter: brightness(95%)
 }
 
 .hufs-global-dark {
