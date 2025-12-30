@@ -1,6 +1,6 @@
 // 글래스모피즘 변수 저장
 %glass-card {
-  background: rgba(0, 0, 0, 0.15);
+  background: rgba(255,255,255,0.1);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   border-radius: 20px;
@@ -52,4 +52,67 @@
 @font-face{
   font-family:'hufs-font-m';
   src : url(../../../public/한국외대체M.ttf)
+}
+
+.random-menu-container {
+    width: 90%;
+    height: 120px;
+    @extend %glass-card;
+    @extend %text-shadow-basic; 
+    margin-top: 10px;
+    padding: 20px;
+    padding-top: 15px;
+    font-family: 'hufs-font-m';
+    color: white;
+    font-size: 21px;
+    position: relative;
+}
+
+.today-menu>span {
+  position: absolute;
+  font-size: 18px;
+  bottom: 20px;
+  width: auto;
+  height: 25px;
+  align-content: end;
+}
+
+.menu-button {
+  width: 120px;
+  height: 35px;
+  font-size: 19px;
+  position: absolute;
+  right: 15px;
+  bottom: 15px;
+  background-color: rgba(0, 0, 0, 0.08);
+  text-align: center;
+  align-content: center;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.1s;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-use-select: none;
+  user-select: none;
+}
+
+.menu-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.menu-suggest {
+  position: absolute;
+  width: 300px;
+  bottom: 0;
+  left: 70px;
+  font-size: 23px;
+
+  span {
+    font-size: 18px;
+  }
+}
+
+.maybe {
+  font-size: 13px;
+  opacity: 0.5;
 }

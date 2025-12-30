@@ -41,8 +41,8 @@ export default function Weather() {
         <>
         <div className="weather-main-container">
             <div className="left-side">
-                <div className="cur-temp"><SkyIcon weather = {weather} className='sky-icon'/>
-                <span>  {curTemp}°</span></div>
+                <div className="cur-temp"><span className='sky-icon'><SkyIcon weather = {weather}/></span>
+                <span>  {curTemp != null ? `${curTemp}°` : "로딩 중..."}</span></div>
                 <div className="place-where">{weather?.campus == 'SEOUL' ? '서울 동대문구' : '경기 용인시'}</div>            
                 <div className="sky-info">
                     <span className="cur-sky">{curSky} {curRain}</span>
@@ -50,9 +50,9 @@ export default function Weather() {
             </div>
             <div className="right-side">
                 <div className="min-max-temp">
-                    <span>{`최고 ${maxTemp}° / 최저 ${minTemp}°`}</span>
+                    <span>{`최고 ${maxTemp != null ? `${maxTemp}°` : '...'} / 최저 ${minTemp != null ? `${minTemp}°` : '...'}`}</span>
                 </div>
-                <div className="humid-info">습도 {humidity}%</div>
+                <div className="humid-info">습도 {humidity != null ? `${humidity}%` : '...'}</div>
             </div>
         </div>
         </>

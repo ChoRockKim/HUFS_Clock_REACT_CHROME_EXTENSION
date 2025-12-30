@@ -15,8 +15,13 @@ export default function LibrarySeats() {
     return (
         <>
         <div className='seats-main-container'>
-            <div className='seats-title'>
-                <span>⦁ 실시간 열람실 여석</span> 
+            <div className='seats-header'>
+                <div className='seats-title'>
+                    <span>⦁ 실시간 열람실 여석</span> 
+                </div>
+                <div className='seats-book' onClick={()=>{window.open('https://lib.hufs.ac.kr/service/facility/seat/reading-rooms-for-assignment')}}>
+                    <span>열람실 예약</span>
+                </div>
             </div>
             <div className='seats-list-box'>
             {seats?.map((data, idx)=>{

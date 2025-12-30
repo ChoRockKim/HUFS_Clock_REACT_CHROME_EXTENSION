@@ -62,7 +62,8 @@
     width: 90%;
     height: 240px;
     padding: 20px;
-    background-color: rgba(255, 255, 255, 0.05);
+    // background-color: rgba(255, 255, 255, 0.05);
+    background-color: rgba(0, 45, 86, 0.05);;
 
     .seats-title {
         font-size: 21px;
@@ -71,7 +72,7 @@
 }
 
 .seats-title {
-    width: 100%;
+    width: 200px;
     height: 15%;
 }
 
@@ -99,12 +100,39 @@
     }
 }
 
+.seats-header{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+
+.seats-book {
+  font-size: 13.5px;
+  position: absolute;
+  right: 0;
+  bottom: 50%;
+  transform: translateY(30%);
+  cursor: pointer;
+  transition: all 0.25s;
+  border-radius: 7px;
+  width: 85px;
+  height: 20px;
+  text-align: center;
+  align-content: center;
+}
+
+.seats-book:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
 #progress {
 position: absolute;
 appearance: none;
 top: 50%;
 transform: translateY(-50%);
 right: 0;
+direction: rtl;
 }
 
 
@@ -120,7 +148,7 @@ box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1),
 }
 
 #progress::-webkit-progress-value {
-background: rgba(0, 45, 86, 1);;
+background: rgba(0, 45, 86, 1);
 height: 28px;
 width: 48px;
 border-radius: 0;
