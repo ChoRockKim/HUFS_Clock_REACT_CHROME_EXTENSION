@@ -15,7 +15,7 @@ export default function SubPage1() {
                 <RandomMenu/>
             </div>
             <div className='right-side'>
-
+                <span>시간표 기능 업데이트 예정...</span>
             </div>
         </div>
         </>
