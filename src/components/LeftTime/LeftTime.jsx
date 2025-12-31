@@ -30,9 +30,12 @@ export default function LeftTime() {
     const secondEnd = getScheduleDate(schedule.second_end);
 
     // null 체크: 필수 날짜 데이터가 없으면 에러 처리
-    if (!firstStart || !firstEnd || !secondStart || !secondEnd) {
-        return <div className="error-text">학사 일정 정보를 불러올 수 없습니다.</div>;
+    if (!firstStart || !firstEnd) {
+        return <div className="error-text">학사 일정 정보가 부족합니다. (1학기 일정 없음)</div>;
     }
+
+    // 2학기 일정이 없으면 1학기만 사용
+    const hasSecondSemester = !!secondStart && !!secondEnd;
 
     // ✨ [추가] 날짜가 같은지 비교하는 헬퍼 함수
     const isSameDate = (date1, date2) => {
@@ -42,7 +45,7 @@ export default function LeftTime() {
     };
 
     // ✨ [추가] 오늘이 종강일인지 체크 (1학기 or 2학기)
-    const isHolidayStart = isSameDate(today, firstEnd) || isSameDate(today, secondEnd);
+    const isHolidayStart = isSameDate(today, firstEnd) || (hasSecondSemester && isSameDate(today, secondEnd));
 
     // --------------- 기존 로직 (구간 판별) ---------------
     let curSemester = ''; 
@@ -55,19 +58,19 @@ export default function LeftTime() {
         targetDate = firstEnd;
     } 
     // [여름방학 중] 
-    else if (now >= firstEnd.getTime() && now < secondStart.getTime()) {
+    else if (hasSecondSemester && now >= firstEnd.getTime() && now < secondStart.getTime()) {
         curSemester = '2학기 개강';
         targetDate = secondStart;
     } 
     // [2학기 중] 
-    else if (now >= secondStart.getTime() && now < secondEnd.getTime()) {
+    else if (hasSecondSemester && now >= secondStart.getTime() && now < secondEnd.getTime()) {
         curSemester = '2학기 종강'; 
         targetDate = secondEnd;
     } 
-    // [겨울방학 중]
+    // [겨울방학 중 또는 2학기 없음]
     else {
         curSemester = '새 학기 개강';
-        targetDate = firstStart; 
+        targetDate = new Date(firstStart); // 복사본 생성
         if (targetDate.getTime() < now) {
             targetDate.setFullYear(targetDate.getFullYear() + 1);
         }
