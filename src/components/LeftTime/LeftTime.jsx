@@ -29,6 +29,11 @@ export default function LeftTime() {
     const secondStart = getScheduleDate(schedule.second_start);
     const secondEnd = getScheduleDate(schedule.second_end);
 
+    // null 체크: 필수 날짜 데이터가 없으면 에러 처리
+    if (!firstStart || !firstEnd || !secondStart || !secondEnd) {
+        return <div className="error-text">학사 일정 정보를 불러올 수 없습니다.</div>;
+    }
+
     // ✨ [추가] 날짜가 같은지 비교하는 헬퍼 함수
     const isSameDate = (date1, date2) => {
         return date1.getFullYear() === date2.getFullYear() &&
