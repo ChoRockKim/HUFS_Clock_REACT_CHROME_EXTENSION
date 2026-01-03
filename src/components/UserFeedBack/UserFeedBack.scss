@@ -1,0 +1,132 @@
+// 글래스모피즘 변수 저장
+%glass-card {
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 0 0px 0px rgba(255, 255, 255, 0);
+  position: relative;
+  overflow: hidden;
+}
+
+%glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.8),
+    transparent
+  );
+}
+
+%glass-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.8),
+    transparent,
+    rgba(255, 255, 255, 0.3)
+  );
+}
+
+@font-face{
+  font-family:'hufs-font-m';
+  src : url(../../../public/한국외대체M.ttf)
+}
+
+.feedback-main-container {
+    width: 400px;
+    height: 420px;
+    @extend %glass-card;
+    position: fixed;
+    bottom: 40px;
+    right: 20px;
+    padding: 20px;
+    color: white;
+    font-family: 'hufs-font-m';
+
+    p {
+        font-size: 15px;
+        margin-bottom: 15px;
+        line-height: 1.1;
+    }
+}
+
+.dev-header{
+    font-size: 21px;
+}
+
+.feedback-label {
+    font-size: 21px;
+}
+
+#user-message {
+    font-family: 'hufs-font-m';
+    background-color: white;
+    color: black;
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    width: 100%;
+    height: 100px;
+    padding: 5px;
+    font-size: 15px;
+}
+
+#submit-btn {
+    position: absolute;
+    bottom: 20px;
+    display: block;
+    width: 100px;
+    height: 35px;
+    background: none;
+    color: white;
+    font-family: 'hufs-font-m';
+    letter-spacing: 1.3px;
+    border-radius: 5px;
+    border: none;
+    background-color: rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    font-size: 15px;
+}
+
+#submit-btn:hover {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.github-img {
+    position: absolute;
+    bottom: 12px;
+    right: 20px;
+    font-size: 35px;
+    cursor: pointer;
+    margin: 0;
+}
+
+.ten-min {
+    position: absolute;
+    bottom: 12px;
+    left: 130px;
+    margin: 0;
+    margin-bottom: 0;
+    opacity: 0.5;
+}
+
+.feedback-thanks {
+    font-size: 21px;
+}
