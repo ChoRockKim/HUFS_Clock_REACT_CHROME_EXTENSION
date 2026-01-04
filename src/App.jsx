@@ -31,8 +31,6 @@ function App() {
     return <IntroSelect />;
   }
 
-
-  
   let bgImage = null;
 
   if (currentConfig.name == '글로벌캠퍼스'){

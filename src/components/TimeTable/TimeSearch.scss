@@ -1,0 +1,475 @@
+// 글래스모피즘 변수 저장
+%glass-card {
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 0 0px 0px rgba(255, 255, 255, 0);
+  position: relative;
+  overflow: hidden;
+}
+
+%glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.8),
+    transparent
+  );
+}
+
+%glass-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 100%;
+//   background: linear-gradient(
+//     180deg,
+//     rgba(255, 255, 255, 0.8),
+//     transparent,
+//     rgba(255, 255, 255, 0.3)
+//   );
+}
+
+%text-shadow-basic{
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), 
+                  0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+@font-face{
+  font-family:'hufs-font-m';
+  src : url(../../../public/한국외대체M.ttf)
+}
+
+.search-main-container {
+    width: 45%;
+    min-width: 402px;
+    height: 500px;
+    @extend %glass-card;
+    font-family: 'hufs-font-m';
+    position: fixed;
+    left: 0%;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 20px;
+    // display: none;
+    overflow: visible;
+}
+
+.search-header-text {
+    font-size: 22px;
+    text-align: left;
+    display: block;
+    width: 120px;
+    margin-bottom: 10px;
+}
+
+.search-option-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    height: 80px;
+}
+
+.input-year{
+    font-family: 'hufs-font-m';
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: white;
+    height: 30px;
+    width: 90px;
+    padding: 8px;
+    border: none;
+    margin-right: 10px;
+    position: relative;
+    cursor: pointer;
+    font-size: 17px;
+    text-align: left;
+    align-content: center;
+    user-select: none;
+}
+
+.input-year::after {
+    content: '▽';
+    font-size: 10px;
+    width: 13px;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: block;
+    height: 30px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    text-align: center;
+    align-content: center;
+    border-radius: 0 5px 5px 0;
+}
+
+.input-year:hover {
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.input-year-options {
+    width: 100%;
+    height: 80px;
+    overflow-y: auto;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.9);
+    top: 100%;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+    border-radius: 5px;
+    padding:3px;
+    font-family: 'hufs-font-m';
+    z-index: 5;
+    
+    li {
+        display: block;
+        width: 100%;
+        text-align: left;
+        border-radius: 3px;
+        cursor: pointer;
+        height: 25px;
+        padding: 5px;
+        font-family: 'hufs-font-m';
+        z-index: 5;
+        user-select: none;
+        position: relative;
+
+        div {
+            width: 100%;
+            height: 100%;
+            bottom: 0;
+            right: 0;
+            border-radius: 3px;
+            position: absolute;
+        }
+    }
+    li>div:hover {
+        background-color: rgba(255, 255, 255, 0.5);
+    }
+}
+
+.input-campus{
+    font-family: 'hufs-font-m';
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: white;
+    height: 30px;
+    width: 75px;
+    padding: 8px;
+    border: none;
+    margin-right: 10px;
+    position: relative;
+    cursor: pointer;
+    font-size: 17px;
+    text-align: left;
+    align-content: center;
+    user-select: none;
+}
+
+.input-campus::after {
+    content: '▽';
+    font-size: 10px;
+    width: 13px;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: block;
+    height: 30px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    text-align: center;
+    align-content: center;
+    border-radius: 0 5px 5px 0;
+}
+
+.input-campus:hover {
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.input-campus-options {
+    width: 100%;
+    height: auto;
+    overflow-y: auto;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.9);
+    top: 100%;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+    border-radius: 5px;
+    padding:3px;
+    font-family: 'hufs-font-m';
+    z-index: 5;
+    
+    li {
+        display: block;
+        width: 100%;
+        text-align: left;
+        border-radius: 3px;
+        cursor: pointer;
+        height: 25px;
+        padding: 5px;
+        font-family: 'hufs-font-m';
+        z-index: 5;
+        user-select: none;
+        position: relative;
+        
+        div {
+            width: 100%;
+            height: 100%;
+            bottom: 0;
+            right: 0;
+            border-radius: 3px;
+            position: absolute;
+        }
+
+    }
+    li>div:hover {
+        background-color: rgba(255, 255, 255, 0.5);
+    }
+}
+
+.input-semester{
+    font-family: 'hufs-font-m';
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: white;
+    height: 30px;
+    width: 90px;
+    padding: 8px;
+    border: none;
+    margin-right: 10px;
+    position: relative;
+    cursor: pointer;
+    font-size: 17px;
+    text-align: left;
+    align-content: center;
+    user-select: none;
+}
+
+.input-semester::after {
+    content: '▽';
+    font-size: 10px;
+    width: 13px;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: block;
+    height: 30px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    text-align: center;
+    align-content: center;
+    border-radius: 0 5px 5px 0;
+}
+
+.input-semester:hover {
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.input-semester-options {
+    width: 100%;
+    height: auto;
+    overflow-y: auto;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.9);
+    top: 100%;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+    border-radius: 5px;
+    padding:3px;
+    font-family: 'hufs-font-m';
+    z-index: 5;
+    
+    li {
+        display: block;
+        width: 100%;
+        text-align: left;
+        border-radius: 3px;
+        cursor: pointer;
+        height: 25px;
+        padding: 5px;
+        font-family: 'hufs-font-m';
+        z-index: 5;
+        user-select: none;
+
+    }
+    li:hover {
+        background-color: rgba(255, 255, 255, 0.5);
+    }
+}
+
+.input-area{
+    font-family: 'hufs-font-m';
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: white;
+    height: 30px;
+    width: 65px;
+    padding: 8px;
+    border: none;
+    margin-right: 10px;
+    position: relative;
+    cursor: pointer;
+    font-size: 17px;
+    text-align: left;
+    align-content: center;
+    user-select: none;
+}
+
+.input-area::after {
+    content: '▽';
+    font-size: 10px;
+    width: 13px;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: block;
+    height: 30px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    text-align: center;
+    align-content: center;
+    border-radius: 0 5px 5px 0;
+}
+
+.input-area:hover {
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.input-area-options {
+    width: 100%;
+    height: auto;
+    overflow-y: auto;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.9);
+    top: 100%;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+    border-radius: 5px;
+    padding:3px;
+    font-family: 'hufs-font-m';
+    z-index: 5;
+    
+    li {
+        display: block;
+        width: 100%;
+        text-align: left;
+        border-radius: 3px;
+        cursor: pointer;
+        height: 25px;
+        padding: 5px;
+        font-family: 'hufs-font-m';
+        z-index: 5;
+        user-select: none;
+
+    }
+    li:hover {
+        background-color: rgba(255, 255, 255, 0.5);
+    }
+}
+
+.input-dept{
+    font-family: 'hufs-font-m';
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: white;
+    height: 30px;
+    width: 100%;
+    padding: 8px;
+    border: none;
+    margin-right: 10px;
+    position: relative;
+    cursor: pointer;
+    font-size: 17px;
+    text-align: left;
+    align-content: center;
+    user-select: none;
+    z-index: 1;
+}
+
+.input-dept::after {
+    content: '▽';
+    font-size: 10px;
+    width: 13px;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: block;
+    height: 30px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    text-align: center;
+    align-content: center;
+    border-radius: 0 5px 5px 0;
+    z-index: 1;
+}
+
+.input-dept:hover {
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.input-dept-options {
+    width: 100%;
+    height: 250px;
+    overflow-y: scroll;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.8);
+    top: 100%;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+    border-radius: 5px;
+    padding:3px;
+    font-family: 'hufs-font-m';
+    z-index: 4;
+    white-space: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    
+    li {
+        display: block;
+        width: 100%;
+        text-align: left;
+        border-radius: 3px;
+        cursor: pointer;
+        height: 25px;
+        padding: 5px;
+        font-family: 'hufs-font-m';
+        z-index: 5;
+        user-select: none;
+
+    }
+    li:hover {
+        background-color: rgba(255, 255, 255, 0.5);
+    }
+}
