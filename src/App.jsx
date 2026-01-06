@@ -64,6 +64,9 @@ function App() {
         className="mySwiper"
         style={{ height: '100%' }}  // 높이 꽉 채우기
         allowTouchMove={false} // 드래그 넘기기 비활성화
+        observer={true} 
+        observeParents={true}
+        watchSlidesProgress={true} // 슬라이드 진행 상태 감시
       >
 
 

@@ -72,7 +72,9 @@ export default function UserFeedBack() {
         name="message" // 메일함에 표시될 이름
         required // 필수 입력 (엣지 케이스 처리)
         placeholder='10분에 한 번 씩만 보낼 수 있어요.
-200자 이내로 작성해주세요!'
+200자 이내로 작성해주세요!
+
+현재 사용하시는 브라우저/OS(윈도우/MAC) 정보도 같이 보내주시면 빠르게 수정이 가능해요.'
         onChange={(e)=>{setText(e.target.value)}}
         disabled = {timeLeft > 0}
       />
