@@ -8,8 +8,8 @@ import { useState } from 'react'
 import TimeSearch from '../components/TimeTable/TimeSearch'
 
 export default function SubPage1() {
-    const [introOn, setIntroOn] = useState(false)
-
+    const [introOn, setIntroOn] = useState(false);
+    const [isSearchOn, setIsSearchOn] = useState(false);
     return(
         <>
         <CurrentTime/>
@@ -20,7 +20,9 @@ export default function SubPage1() {
                 <RandomMenu/>
             </div>
             <div className='right-side'>
-                <TimeSearch/>
+                {isSearchOn && <TimeSearch/>}
+                <button onClick={()=>{setIsSearchOn(!isSearchOn)}} 
+                className='turn-on-search'>{!isSearchOn ? '시간표 검색' : '검색창 닫기'}</button>
             </div>
         </div>
         <button className='dev-intro-btn' onClick={()=> {setIntroOn(!introOn)}}>개발자 소개</button>
