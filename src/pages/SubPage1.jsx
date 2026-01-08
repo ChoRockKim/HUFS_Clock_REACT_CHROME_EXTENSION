@@ -6,6 +6,7 @@ import RandomMenu from '../components/RandomMenu/RandomMenu'
 import FeedBackBox from '../components/UserFeedBack/FeedBackBox'
 import { useState } from 'react'
 import TimeSearch from '../components/TimeTable/TimeSearch'
+import TimeTable from '../components/TimeTable/TimeTable'
 
 export default function SubPage1() {
     const [introOn, setIntroOn] = useState(false);
@@ -22,7 +23,8 @@ export default function SubPage1() {
             <div className='right-side'>
                 {isSearchOn && <TimeSearch/>}
                 <button onClick={()=>{setIsSearchOn(!isSearchOn)}} 
-                className='turn-on-search'>{!isSearchOn ? '시간표 검색' : '검색창 닫기'}</button>
+                className='turn-on-search'>{!isSearchOn ? '검색' : '닫기'}</button>
+                <TimeTable/>
             </div>
         </div>
         <button className='dev-intro-btn' onClick={()=> {setIntroOn(!introOn)}}>개발자 소개</button>

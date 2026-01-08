@@ -71,6 +71,8 @@
   width: 50%;
   height: 100%;
   overflow: visible;
+  position: relative;
+  z-index: 2;
 }
 
 .dev-intro-btn {
@@ -104,7 +106,7 @@
     color: white;
     font-family: 'hufs-font-m';
     height: 30px;
-    width: 100px;
+    width: 50px;
     font-size: 16px;
     border: none;
     border-radius: 10px;

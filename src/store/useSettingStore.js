@@ -46,6 +46,7 @@ const initialState = {
   selectedCampus: null,
   userName: null,
   enterYear : null,
+  inCartCourse : [{}],
   userLink : [{ id : 0,
                 hotLinkName : '🏛️ 홈페이지',
                 hotLink :'https://www.hufs.ac.kr',
