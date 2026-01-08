@@ -5,7 +5,8 @@ import { deptSeoul, deptGlobal, liberalSeoul, liberalGlobal
     , basicSeoul, basicGlobal
  } from './deptCode';
 import axios from 'axios';
-
+import useSettingStore from '../../store/useSettingStore';
+import { parseTimeData } from '../../utils/timeParser';
 
 export default function TimeSearch() {
     const stopSwiperHandlers = useStopSwiper();
@@ -38,6 +39,7 @@ export default function TimeSearch() {
     const [loadFail, setLoadFail] = useState(false);
 
     const [chosenCourse, setChosenCourse] = useState({})
+    const { inCartCourse } = useSettingStore();
 
     useEffect(()=>{
 
@@ -219,6 +221,7 @@ export default function TimeSearch() {
 
                 <button onClick={(e)=>{getLssnList(params)
                     e.preventDefault()
+                    setIsDetailOpen(false);
                 }}
                 className='search-btn'>검색</button>
                 
@@ -227,11 +230,14 @@ export default function TimeSearch() {
             </div>
             <div className='course-list-container'>
                 <ul {...stopSwiperHandlers}>
-                {loading ? <span className='course-loading'>로딩 중...</span> : loadedLssn.map((data)=>{
+                {loading ? <span className='course-loading'>로딩 중...</span> : 
+                loadedLssn.map((data)=>{
+                    const isInCart = inCartCourse.some(c=>c.c_id == data.c_id);
+
                     return <li onClick={()=>{setChosenCourse(data)
                         setIsDetailOpen(true);
                     }}
-                    className='course-list'>
+                    className={`course-list`}>
                         <span style={{width : '100%', display : 'block', whiteSpace : 'nowrap', overflowX : 'hidden'}}>
                             {data.c_name}
                             <br/>
@@ -244,6 +250,7 @@ export default function TimeSearch() {
                             <br></br>
                             {data?.time && `${data.time}`}{data?.c_id && ` / ${data.c_id}`}</span>
                         </span>
+                        {isInCart && <span className='check-box'>✔</span>}
                     </li>
                 })}
                 </ul>
@@ -255,7 +262,40 @@ export default function TimeSearch() {
 }
 
 function DetailCourse({ chosenCourse, year, params, isDetailOpen, setIsDetailOpen }) {
-    
+    const { inCartCourse, setInCartCourse, removeInCartCourse } = useSettingStore()
+
+    // 시간 충돌 확인 함수
+    const checkTimeConflict = (newCourse) => {
+        const newSlots = parseTimeData(newCourse.time);
+        if (!newSlots) return false;
+
+        // 단일/복수 모두 배열로 변환
+        const newSlotsArray = Array.isArray(newSlots) ? newSlots : [newSlots];
+
+        // 기존 강의들과 비교
+        for (const existingCourse of inCartCourse) {
+            const existingSlots = parseTimeData(existingCourse.time);
+            if (!existingSlots) continue;
+
+            const existingSlotsArray = Array.isArray(existingSlots) ? existingSlots : [existingSlots];
+
+            // 새 강의의 모든 시간대와 기존 강의의 모든 시간대를 비교
+            for (const newSlot of newSlotsArray) {
+                for (const existingSlot of existingSlotsArray) {
+                    // 같은 요일이고 시간이 겹치면
+                    if (newSlot.dayIndex === existingSlot.dayIndex) {
+                        // 시간 겹침 판정: start1 < end2 && start2 < end1
+                        if (newSlot.startHour < existingSlot.endHour && existingSlot.startHour < newSlot.endHour) {
+                            return true; // 시간 충돌
+                        }
+                    }
+                }
+            }
+        }
+
+        return false; // 시간 충돌 없음
+    };
+
     if (isDetailOpen) {
 
     return(
@@ -279,7 +319,24 @@ function DetailCourse({ chosenCourse, year, params, isDetailOpen, setIsDetailOpe
                 <button onClick={()=>{
                     window.open(`https://wis.hufs.ac.kr/src08/jsp/lecture/syllabus.jsp?mode=print&ledg_year=${year}&ledg_sessn=${params.semester}&org_sect=A&lssn_cd=${chosenCourse.c_id}`)}}
                     id='detail-course-btn-plan'>강의계획서</button>
-                <button className='detail-course-btn-submit'>신청</button>
+                <button className='detail-course-btn-submit'
+                onClick={()=>{
+                    const isDuplicated = inCartCourse.some(c=>c.c_id == chosenCourse.c_id);
+                    
+                    if (isDuplicated) {
+                        removeInCartCourse(chosenCourse.c_id);
+                        setIsDetailOpen(false);
+                    } else {
+                        // 시간 충돌 확인
+                        if (checkTimeConflict(chosenCourse)) {
+                            alert('⚠️ 이미 추가된 강의와 시간이 겹칩니다!');
+                            return;
+                        }
+                        
+                        setInCartCourse(chosenCourse);
+                    }
+                }}
+                >{inCartCourse.some(c=>c.c_id == chosenCourse.c_id) ? '제거' : '신청'}</button>
                 <button className='detail-course-btn-quit'
                 onClick={()=>{setIsDetailOpen(false)}}>닫기</button>
             </div>

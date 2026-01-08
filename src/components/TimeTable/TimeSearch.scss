@@ -659,3 +659,17 @@
     padding: 8px;
     z-index: 1000;
 }
+
+.in-cart-white-li {
+    border: 1px solid black;
+}
+
+.check-box {
+    width: 10px;
+    height: 10px;
+    font-size: 15px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 10px;
+}

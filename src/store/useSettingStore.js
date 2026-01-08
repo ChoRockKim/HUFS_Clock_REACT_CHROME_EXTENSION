@@ -46,7 +46,7 @@ const initialState = {
   selectedCampus: null,
   userName: null,
   enterYear : null,
-  inCartCourse : [{}],
+  inCartCourse : [],
   userLink : [{ id : 0,
                 hotLinkName : '🏛️ 홈페이지',
                 hotLink :'https://www.hufs.ac.kr',
@@ -108,7 +108,20 @@ const useSettingStore = create(
           ),
         })),
 
-      setCampus: (campusKey) => set({ selectedCampus: campusKey }),
+        setInCartCourse : (course) => set((state) => {
+          const isDuplicated = state.inCartCourse.some(c => c.c_id === String(course.c_id));
+          if (isDuplicated) {
+            alert('이미 추가한 강의입니다.')
+            return state;
+          }
+          return {inCartCourse : [...state.inCartCourse, course]};
+        }),
+
+        removeInCartCourse : (courseId) => set((state) =>{
+          return {inCartCourse : state.inCartCourse.filter(c => c.c_id !== String(courseId))}
+        }),
+
+      setCampus : (campusKey) => set({ selectedCampus: campusKey }),
       
       // [수정] 데이터 꼬임 문제를 해결하기 위해 상태 전체를 초기화하는 강력한 리셋 기능
       resetCampus: () => {
