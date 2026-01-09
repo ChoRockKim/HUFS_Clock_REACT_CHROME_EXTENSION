@@ -1,9 +1,10 @@
 import './TimeTable.scss'
 import { parseTimeData } from '../../utils/timeParser'
 import useSettingStore from '../../store/useSettingStore'
+import Swal from 'sweetalert2';
 
 export default function TimeTable() {
-    const { inCartCourse } = useSettingStore();
+    const { inCartCourse, removeInCartCourse } = useSettingStore();
     
     const hours = [9, 10, 11, 12, 1, 2, 3, 4, 5, 6, 7];
     const days = ['월', '화', '수', '목', '금'];
@@ -35,6 +36,42 @@ export default function TimeTable() {
                 hour < slot.endHour
             );
         });
+    };
+
+    // 강의 삭제 시 alert 창 디자인
+    const handleDeleteCourse = (course) => {
+    Swal.fire({
+        title: '강의를 삭제할까요?',
+        html: `<span style="color: #8ab4d4;">${course.c_name}</span>을(를)<br/>시간표에서 제거합니다.`,
+        showCancelButton: true,
+        confirmButtonText: '삭제',
+        cancelButtonText: '취소',
+        
+        // 스타일 커스텀 적용
+        buttonsStyling: false,
+        customClass: {
+        popup: 'winter-popup',
+        title: 'winter-title',
+        htmlContainer: 'winter-content',
+        actions: 'winter-actions',
+        confirmButton: 'winter-confirm-btn',
+        cancelButton: 'winter-cancel-btn',
+        },
+        
+        // 애니메이션 (부드럽게 나타나기)
+        showClass: {
+        popup: 'animate__animated animate__fadeIn animate__faster'
+        },
+        hideClass: {
+        popup: 'animate__animated animate__fadeOut animate__faster'
+        }
+    }).then((result) => {
+        if (result.isConfirmed) {
+        removeInCartCourse(course.c_id);
+        // 성공 알림도 톤을 맞춰서 토스트로 띄워줍니다.
+        toast.success('삭제되었습니다');
+        }
+    });
     };
 
     return (
@@ -112,6 +149,12 @@ export default function TimeTable() {
                 <div className='cell-body'>{getCourse(7, 2) && renderCourse(getCourse(7, 2))}</div>
                 <div className='cell-body'>{getCourse(7, 3) && renderCourse(getCourse(7, 3))}</div>
                 <div className='cell-body-right'>{getCourse(7, 4) && renderCourse(getCourse(7, 4))}</div>
+                <div className='cell-body-left'>8</div>
+                <div className='cell-body'>{getCourse(8, 0) && renderCourse(getCourse(8, 0))}</div>
+                <div className='cell-body'>{getCourse(8, 1) && renderCourse(getCourse(8, 1))}</div>
+                <div className='cell-body'>{getCourse(8, 2) && renderCourse(getCourse(8, 2))}</div>
+                <div className='cell-body'>{getCourse(8, 3) && renderCourse(getCourse(8, 3))}</div>
+                <div className='cell-body-right'>{getCourse(8, 4) && renderCourse(getCourse(8, 4))}</div>
 
             </div>
         </>
@@ -137,8 +180,9 @@ export default function TimeTable() {
 
     function renderCourse(course) {
         const bgColor = getColorByHash(course.c_id);
+
         return (
-            <div 
+            <div onClick={()=>{handleDeleteCourse(course)}}
                 className='course-card'
                 style={{ backgroundColor: bgColor }}
             >

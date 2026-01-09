@@ -65,13 +65,10 @@ export default function LinkButtons() {
             className='link-btn-container'>
             <p className='link-btn-header'>바로가기</p>
             <div className='link-btn-area'>
-                {userLink.map((data, idx)=>{
+                {userLink.map((data)=>{
                     return (
-                    <>
                     <ButtonGroup data={data} key={data.id} isCustomOn={isCustomOn}
-                    setIsCustomOn={setIsCustomOn} targetId={targetId} setTargetId={setTargetId}>
-                    </ButtonGroup>
-                    </>
+                    setIsCustomOn={setIsCustomOn} targetId={targetId} setTargetId={setTargetId}/>
                     )})}
             </div>
             </div>

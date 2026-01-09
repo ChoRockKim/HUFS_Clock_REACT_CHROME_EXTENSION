@@ -56,7 +56,7 @@
 
 .timetable-grid-container {
     display: grid;
-    grid-template-rows: 20px 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 20px 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-columns: 20px 1fr 1fr 1fr 1fr 1fr;
     width: 86%;
     height: 500px;
@@ -97,19 +97,21 @@
 .course-card {
     opacity: 0.85;
     color: white;
-    font-size: 11px;
+    font-size: 10px;
     padding: 0;
     overflow: hidden;
+    text-overflow: ellipsis;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: 600;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    font-weight: 500;
+    text-shadow: none;
     width: 100%;
     height: 100%;
     margin: 0;
     border: none;
     box-sizing: border-box;
+    cursor: pointer;
 }
 
 .course-name {
@@ -120,4 +122,70 @@
     word-break: break-word;
     white-space: normal;
     line-height: 1.2;
+}
+
+.course-card:hover {
+    filter: brightness(120%);
+}
+
+/* SweetAlert2 겨울 배경 일관성 스타일 */
+.winter-popup {
+  backdrop-filter: blur(12px) !important; /* 유리 뒤로 배경이 비치는 효과 */
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15) !important; /* 살얼음 같은 얇은 테두리 */
+  border-radius: 24px !important; /* 사진의 둥근 모서리 반영 */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
+  @extend %glass-card;
+  width: 350px;
+  height: 200px;
+}
+
+.winter-title {
+  color: #e6edf5 !important; /* 눈처럼 부드러운 오프 화이트 */
+  font-size: 19px !important;
+  font-weight: 600 !important;
+}
+
+.winter-content {
+  color: #aab2bd !important; /* 차분한 그레이 블루 */
+  font-size: 14px !important;
+}
+
+/* 버튼 컨테이너 및 스타일 */
+.winter-actions {
+  gap: 12px !important;
+  margin-top: 25px !important;
+}
+
+.winter-confirm-btn {
+  background-color: #4a5a8a !important; /* 사진 속 '운영체제' 블록의 딥블루 컬러 */
+  color: white !important;
+  padding: 12px 24px !important;
+  border-radius: 12px !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  border: none !important;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.winter-confirm-btn:hover {
+  background-color: #5c6da5 !important; /* 호버 시 약간 밝아짐 */
+}
+
+.winter-cancel-btn {
+  background-color: rgba(255, 255, 255, 0.08) !important; /* 배경에 묻어가는 투명 버튼 */
+  color: #e6edf5 !important;
+  padding: 12px 24px !important;
+  border-radius: 12px !important;
+  font-size: 14px !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+}
+
+.winter-cancel-btn:hover {
+  background-color: rgba(255, 255, 255, 0.2) !important; /* 배경에 묻어가는 투명 버튼 */
+
 }

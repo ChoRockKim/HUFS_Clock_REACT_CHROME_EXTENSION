@@ -237,8 +237,9 @@ export default function TimeSearch() {
                     return <li onClick={()=>{setChosenCourse(data)
                         setIsDetailOpen(true);
                     }}
-                    className={`course-list`}>
-                        <span style={{width : '100%', display : 'block', whiteSpace : 'nowrap', overflowX : 'hidden'}}>
+                    className='course-list'>
+                        <span style={{width : '100%', display : 'block', whiteSpace : 'nowrap', 
+                            overflowX : 'hidden', textOverflow : 'ellipsis'}}>
                             {data.c_name}
                             <br/>
                         <span style={{fontSize : '12px', width : '100%', textAlign : 'left'

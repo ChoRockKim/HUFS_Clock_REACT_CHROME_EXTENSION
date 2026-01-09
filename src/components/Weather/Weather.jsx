@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 export default function Weather() {
     const { data, isError, isLoading } = useWeatherData();
     const weather = data;
+    const campusDisplay = isLoading ? '서울 동대문구' : (weather?.campus == 'SEOUL' ? '서울 동대문구' : '경기 용인시');
     const curTemp = weather?.data?.temp;
     const curSkyNum = weather?.data?.sky;
     const curRainNum = weather?.data?.rainType;
@@ -43,7 +44,7 @@ export default function Weather() {
             <div className="left-side">
                 <div className="cur-temp"><span className='sky-icon'><SkyIcon weather = {weather}/></span>
                 <span>  {curTemp != null ? `${curTemp}°` : "로딩 중..."}</span></div>
-                <div className="place-where">{weather?.campus == 'SEOUL' ? '서울 동대문구' : '경기 용인시'}</div>            
+                <div className="place-where">{campusDisplay}</div>            
                 <div className="sky-info">
                     <span className="cur-sky">{curSky} {curRain}</span>
                 </div>
