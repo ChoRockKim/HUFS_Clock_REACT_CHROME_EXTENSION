@@ -13,4 +13,29 @@
     color: white;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), 
                0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.25s ease;
+}
+
+.current-time-header {
+  margin-bottom: 5px;
+  transition: all 0.25 ease;
+}
+
+@media screen and (max-height: 670px) {
+    .current-time-container {
+      font-size: 20px;
+    }
+    .current-time-header {
+      margin-bottom : 3px;
+    }
+}
+
+@media screen and (max-height: 655px) {
+  .current-time-container {
+    font-size: 15px;
+  }
+
+  .current-time-header {
+    margin-bottom: 1px;
+  }
 }

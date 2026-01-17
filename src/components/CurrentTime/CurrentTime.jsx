@@ -15,7 +15,7 @@ export default function CurrentTime() {
     return (
         <>
         <div className="current-time-container">
-        <div style={{marginBottom: '5px'}}>현재시각</div>
+        <div className="current-time-header">현재시각</div>
         <div>{curTime.toLocaleString()}</div>
         </div>
         </>
