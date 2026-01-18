@@ -114,7 +114,6 @@ npm install
 ```bash
 npm run dev
 ```
-> `http://localhost:5173` 에서 확인
 
 ### 프로덕션 빌드
 ```bash
@@ -230,7 +229,7 @@ GET https://hufs-clock-api.vercel.app/api/weather?campus=SEOUL
 
 - **웹브라우저**: Chrome, Firefox, Safari, Edge (최신 버전)
 - **크롬 익스텐션**: Chrome Storage API 자동 감지
-- **모바일**: iOS/Android 브라우저 지원
+- **모바일**: 지원 불가
 
 ---
 
@@ -242,7 +241,7 @@ GET https://hufs-clock-api.vercel.app/api/weather?campus=SEOUL
 
 ## 👨‍💻 개발자
 
-HUFS Clock Upgraded 팀
+김초록
 
 ---
 
