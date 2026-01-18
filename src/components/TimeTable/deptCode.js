@@ -157,6 +157,7 @@ export const liberalSeoul = [
 { name: "대학외국어", code: "305" },
   { name: "미네르바인문", code: "306" },
   { name: "AI·SW·데이터", code: "30B" },
+  {name: "공동교양(한예종)", code: "32Z"},
   { name: "역사와철학", code: "332" },
   { name: "과학과기술", code: "334" },
   { name: "문학과예술", code: "337" },
