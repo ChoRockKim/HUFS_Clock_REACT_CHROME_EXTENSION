@@ -31,7 +31,7 @@ export default function LeftTime() {
 
     // null 체크: 필수 날짜 데이터가 없으면 에러 처리
     if (!firstStart || !firstEnd) {
-        return <div className="error-text">학사 일정 정보가 부족합니다. (1학기 일정 없음)</div>;
+        return <div className="error-text">오류가 발했습니다. <br/>관리자에게 문의해주세요.</div>;
     }
 
     // 2학기 일정이 없으면 1학기만 사용

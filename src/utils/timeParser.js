@@ -21,43 +21,50 @@ export const parseTimeData = (timeString) => {
     return null;
   }
 
-  // 모든 시간대 찾음
   const slots = [];
-  // "목 4 5 6 (1406)" 또는 "목 5 6 ( )" 형식 처리
-  const regex = /(\S+)\s+([\d\s]+)\s*\(([^)]*)\)/g;
-  let match;
+  // 정규식을 사용하여 "요일"과 "그 외 나머지"로 분리
+  const parts = timeString.split(/([월화수목금])/).filter(Boolean);
 
-  while ((match = regex.exec(timeString)) !== null) {
-    const day = match[1];
+  for (let i = 0; i < parts.length; i += 2) {
+    const day = parts[i];
+    let timeInfo = parts[i + 1];
+
+    if (!day || !timeInfo) continue;
+
     const dayIndex = dayMap[day];
-    const room = match[3]?.trim() || null;
+    if (dayIndex === undefined) continue;
 
-    if (dayIndex !== undefined) {
-      // "4 5 6"에서 모든 숫자 추출
-      const classNumbers = match[2].trim().split(/\s+/).map(Number);
+    // 다음 요일이 나오기 전까지의 문자열만 선택
+    if (i + 2 < parts.length) {
+        timeInfo = timeInfo.split(/[월화수목금]/)[0];
+    }
+    
+    const classMatch = timeInfo.match(/[\d\s]+/);
+    const roomMatch = timeInfo.match(/\(([^)]*)\)/);
+    
+    const room = roomMatch ? roomMatch[1].trim() : null;
+    const classNumbers = classMatch ? classMatch[0].trim().split(/\s+/).map(Number).filter(n => !isNaN(n) && n > 0) : [];
+
+    if (classNumbers.length > 0) {
+      const startClass = classNumbers[0];
+      const endClass = classNumbers[classNumbers.length - 1];
       
-      if (classNumbers.length > 0) {
-        const startClass = classNumbers[0];
-        const endClass = classNumbers[classNumbers.length - 1];
-        
-        slots.push({
-          day,
-          dayIndex,
-          startClass,
-          endClass,
-          startHour: classToHour(startClass),
-          endHour: classToHour(endClass) + 1, // endClass까지 포함되므로 +1
-          room: room ? room : null
-        });
-      }
+      slots.push({
+        day,
+        dayIndex,
+        startClass,
+        endClass,
+        startHour: classToHour(startClass),
+        endHour: classToHour(endClass) + 1,
+        room: room || null
+      });
     }
   }
 
   if (slots.length === 0) {
-    console.warn(`시간 파싱 실패: ${timeString}`);
+    console.warn(`시간 파싱에 실패했습니다: "${timeString}"`);
     return null;
   }
 
-  // 단일: 객체 반환, 복수: 배열 반환
   return slots.length === 1 ? slots[0] : slots;
 };
