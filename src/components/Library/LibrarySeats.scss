@@ -126,7 +126,7 @@
   background-color: rgba(255, 255, 255, 0.2);
 }
 
-#progress {
+.progress {
 position: absolute;
 appearance: none;
 top: 50%;
@@ -136,7 +136,7 @@ direction: rtl;
 }
 
 
-#progress::-webkit-progress-bar {
+.progress::-webkit-progress-bar {
 background: rgba(255, 255, 255, 0.4);
 border-radius: 10px;
 border: none;
@@ -147,9 +147,84 @@ box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1),
             0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-#progress::-webkit-progress-value {
+.progress::-webkit-progress-value {
 background: rgba(0, 45, 86, 1);
 height: 28px;
 width: 48px;
 border-radius: 0;
+}
+
+.seats-error {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.seat-name-skeleton,
+.seats-num-skeleton,
+.progress-skeleton,
+.seats-book-skeleton {
+  display: block;
+  position: absolute;
+  overflow: hidden;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.seat-name-skeleton::after,
+.seats-num-skeleton::after,
+.progress-skeleton::after,
+.seats-book-skeleton::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0.28),
+    rgba(255, 255, 255, 0)
+  );
+  animation: seats-skeleton-shimmer 1.5s infinite;
+}
+
+.seats-left-skeleton {
+  height: 22px;
+}
+
+.seat-name-skeleton {
+  top: 50%;
+  left: 0;
+  width: 145px;
+  height: 16px;
+  transform: translateY(-50%);
+}
+
+.seats-num-skeleton {
+  top: 50%;
+  right: 185px;
+  width: 46px;
+  height: 14px;
+  transform: translateY(-50%);
+}
+
+.progress-skeleton {
+  top: 50%;
+  right: 0;
+  width: 170px;
+  height: 13px;
+  transform: translateY(-50%);
+}
+
+.seats-book-skeleton {
+  right: 0;
+  bottom: 50%;
+  width: 85px;
+  height: 20px;
+  transform: translateY(30%);
+}
+
+@keyframes seats-skeleton-shimmer {
+  100% {
+    transform: translateX(100%);
+  }
 }

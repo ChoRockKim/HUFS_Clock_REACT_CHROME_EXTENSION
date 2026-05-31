@@ -42,7 +42,7 @@ export default function TimeTable() {
     const handleDeleteCourse = (course) => {
     Swal.fire({
         title: '강의를 삭제할까요?',
-        html: `<span style="color: #8ab4d4;">${course.c_name}</span>을(를)<br/>시간표에서 제거합니다.`,
+        text: `${course.c_name}을(를) 시간표에서 제거합니다.`,
         showCancelButton: true,
         confirmButtonText: '삭제',
         cancelButtonText: '취소',
@@ -68,8 +68,15 @@ export default function TimeTable() {
     }).then((result) => {
         if (result.isConfirmed) {
         removeInCartCourse(course.c_id);
-        // 성공 알림도 톤을 맞춰서 토스트로 띄워줍니다.
-        toast.success('삭제되었습니다');
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: 'success',
+            title: '삭제되었습니다',
+            showConfirmButton: false,
+            timer: 1500,
+            timerProgressBar: true,
+        });
         }
     });
     };
@@ -193,4 +200,3 @@ export default function TimeTable() {
         );
     }
 }
-

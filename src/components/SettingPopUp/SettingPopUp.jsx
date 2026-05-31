@@ -15,19 +15,20 @@ export default function SettingPopUp({ settingOn }) {
     const numList = [19, 20, 21, 22, 23, 24, 25, 26]
     const settingClass = settingOn ? 'appear' : ''
 
-    function clickSame(e) {
-        if (curOpen.current && !curOpen.current.contains(e.target)) {
-            setIsOpen(false)
-        }
-    }
     useEffect(()=>{
+        const handleWindowClick = (e) => {
+            if (curOpen.current && !curOpen.current.contains(e.target)) {
+                setIsOpen(false)
+            }
+        }
+
         if (isOpen) {
-            window.addEventListener('click', (e)=>{clickSame(e)})
+            window.addEventListener('click', handleWindowClick)
         }
         return ()=>{
-            window.removeEventListener('click', (e)=>{clickSame(e)})
+            window.removeEventListener('click', handleWindowClick)
         }
-    }, [isOpen, setIsOpen])
+    }, [isOpen])
 
     return(
         <>

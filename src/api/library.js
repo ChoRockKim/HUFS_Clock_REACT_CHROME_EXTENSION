@@ -8,7 +8,7 @@ export const fetchLibraryData = async (campus) => {
         const res = await axios.get(API_ENDPOINT);
         return res.data;
     } else if (campus === 'GLOBAL') {
-        const API_ENDPOINT = 'https://hufs-clock-api.vercel.app/api/library?campus=GLOBAl'
+        const API_ENDPOINT = 'https://hufs-clock-api.vercel.app/api/library?campus=GLOBAL'
         const res = await axios.get(API_ENDPOINT);
         return res.data;
     }

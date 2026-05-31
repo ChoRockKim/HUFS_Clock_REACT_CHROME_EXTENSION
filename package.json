@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "zip": "cd dist && zip -r ../deploy.zip . -x \"*.DS_Store\" -x \"__MACOSX\"",
+    "deploy": "npm run build && npm run zip"
   },
   "dependencies": {
     "@formspree/react": "^3.0.0",

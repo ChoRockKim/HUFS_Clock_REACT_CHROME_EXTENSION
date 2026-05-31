@@ -7,8 +7,21 @@ export default function LibrarySeats() {
     const seats = data?.data.list;
     const { selectedCampus } = useSettingStore()
 
-    if (isLoading) return <div>로딩 중...</div>
-    if (isError) return <div>에러 남...</div>
+    if (isLoading) return <LibrarySeatsSkeleton />
+    if (isError) {
+        return (
+            <div className='seats-main-container'>
+                <div className='seats-header'>
+                    <div className='seats-title'>
+                        <span>⦁ 실시간 열람실 여석</span>
+                    </div>
+                </div>
+                <div className='seats-list-box'>
+                    <div className='seats-error'>열람실 여석을 불러오지 못했습니다.</div>
+                </div>
+            </div>
+        )
+    }
 
     console.log(seats)
 
@@ -26,7 +39,7 @@ export default function LibrarySeats() {
             <div className='seats-list-box'>
             {seats?.map((data, idx)=>{
                 return(
-                <SeatLeft data = {data} key={idx}
+                <SeatLeft data = {data} key={data.id || data.name || idx}
                 selectedCampus = {selectedCampus}/>)
             })}
             </div>
@@ -35,10 +48,31 @@ export default function LibrarySeats() {
     )
 }
 
-function SeatLeft({ data, idx, selectedCampus }) {
+function LibrarySeatsSkeleton() {
+    return (
+        <div className='seats-main-container'>
+            <div className='seats-header'>
+                <div className='seats-title'>
+                    <span>⦁ 실시간 열람실 여석</span>
+                </div>
+                <div className='seats-book seats-book-skeleton'></div>
+            </div>
+            <div className='seats-list-box'>
+                {[1, 2, 3, 4].map((row) => (
+                    <div className='seats-left seats-left-skeleton' key={row}>
+                        <span className='seat-name-skeleton'></span>
+                        <span className='seats-num-skeleton'></span>
+                        <span className='progress-skeleton'></span>
+                    </div>
+                ))}
+            </div>
+        </div>
+    )
+}
+
+function SeatLeft({ data, selectedCampus }) {
     
     const seatsAvail = data.seats.available;
-    const seatsOccupied = data.seats.occupied;
     const seatsTotal = data.seats.total;
     let seatsName;
 
@@ -62,7 +96,6 @@ function SeatLeft({ data, idx, selectedCampus }) {
             </span>
             <progress
                 className="progress"
-                id="progress"
                 value={seatsAvail}
                 min="0"
                 max={seatsTotal}/>

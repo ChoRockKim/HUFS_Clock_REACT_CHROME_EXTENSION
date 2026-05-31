@@ -13,7 +13,14 @@ function NoticeTable() {
     let [isScroll, setIsScroll] = useState(false);
 
     if (isLoading) return <div><SkeletonUI/></div>;
-    if (isError) return <div><SkeletonUI/></div>;
+    if (isError) {
+        return (
+            <div className="Notice-table-container" {...stopSwiperHandlers}>
+                <div className='notice-header'>⦁ 공지사항</div>
+                <div>공지사항을 불러오지 못했습니다.</div>
+            </div>
+        );
+    }
     
     if (notices){
         console.log('서울캠퍼스 공지사항 크롤링 성공!')

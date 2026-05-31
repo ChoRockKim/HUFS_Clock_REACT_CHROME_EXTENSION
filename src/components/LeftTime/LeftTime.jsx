@@ -1,6 +1,5 @@
 import useData from "../../api/request"; 
 import CountDown from "./Countdown"; 
-import { useState, useEffect } from "react";
 import './LeftTime.scss'
 
 export default function LeftTime() {
@@ -16,12 +15,8 @@ export default function LeftTime() {
     // 3. 날짜 파싱 함수
     const getScheduleDate = (dateStr) => {
         if (!dateStr) return null;
-        const [month, day] = dateStr.split('.');
-        const date = new Date();
-        date.setMonth(Number(month) - 1); 
-        date.setDate(Number(day));
-        date.setHours(0, 0, 0, 0); // 자정으로 초기화
-        return date;
+        const [month, day] = dateStr.split('.').map(Number);
+        return new Date(today.getFullYear(), month - 1, day, 0, 0, 0, 0);
     };
 
     const firstStart = getScheduleDate(schedule.first_start);
