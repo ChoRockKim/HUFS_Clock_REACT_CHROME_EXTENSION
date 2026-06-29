@@ -12,7 +12,7 @@ const smartStorageAdapter = {
     }
     
     // 2. 아니면(로컬 개발 환경) localStorage 사용
-    console.log(`[Dev] 로컬스토리지에서 불러옴: ${name}`);
+    // console.log(`[Dev] 로컬스토리지에서 불러옴: ${name}`);
     return localStorage.getItem(name);
   },
 
@@ -23,7 +23,7 @@ const smartStorageAdapter = {
     } 
     // 2. 로컬 개발 환경
     else {
-      console.log(`[Dev] 로컬스토리지에 저장함: ${name}`, value);
+      // console.log(`[Dev] 로컬스토리지에 저장함: ${name}`, value);
       localStorage.setItem(name, value);
     }
   },
@@ -47,6 +47,9 @@ const initialState = {
   userName: null,
   enterYear : null,
   inCartCourse : [],
+  lastSeenNoticeId: null,
+  customBookmarkCount: 4,
+  isBookmarkPinned: false,
   userLink : [{ id : 0,
                 hotLinkName : '🏛️ 홈페이지',
                 hotLink :'https://www.hufs.ac.kr',
@@ -63,26 +66,14 @@ const initialState = {
                 hotLinkName : '🏢 Ability',
                 hotLink :'https://hufsability.hufs.ac.kr',
                 custom : false},
-              { id : 4,
-                hotLinkName: '북마크 추가',
-                hotLink : '',
-                custom: true
-              },
-              { id : 5,
-                hotLinkName: '북마크 추가',
-                hotLink : '',
-                custom : true
-              },
-              { id : 6,
-                hotLinkName: '북마크 추가',
-                hotLink : '',
-                custom: true
-              },
-              { id : 7,
-                hotLinkName: '북마크 추가',
-                hotLink : '',
-                custom : true
-              }],
+              { id : 4,  hotLinkName: '북마크 추가', hotLink : '', custom: true },
+              { id : 5,  hotLinkName: '북마크 추가', hotLink : '', custom: true },
+              { id : 6,  hotLinkName: '북마크 추가', hotLink : '', custom: true },
+              { id : 7,  hotLinkName: '북마크 추가', hotLink : '', custom: true },
+              { id : 8,  hotLinkName: '북마크 추가', hotLink : '', custom: true },
+              { id : 9,  hotLinkName: '북마크 추가', hotLink : '', custom: true },
+              { id : 10, hotLinkName: '북마크 추가', hotLink : '', custom: true },
+              { id : 11, hotLinkName: '북마크 추가', hotLink : '', custom: true },],
 };
 
 // Store 생성
@@ -93,11 +84,15 @@ const useSettingStore = create(
 
       // --- Actions ---
       updateUserLink: (updatedLink) =>
-        set((state) => ({
-          userLink: state.userLink.map((link) =>
-            link.id === updatedLink.id ? { ...link, ...updatedLink } : link
-          ),
-        })),
+        set((state) => {
+          const exists = state.userLink.some(link => link.id === updatedLink.id);
+          if (exists) {
+            return { userLink: state.userLink.map(link =>
+              link.id === updatedLink.id ? { ...link, ...updatedLink } : link
+            )};
+          }
+          return { userLink: [...state.userLink, updatedLink] };
+        }),
 
       removeUserLink: (linkIdToRemove) =>
         set((state) => ({
@@ -125,13 +120,21 @@ const useSettingStore = create(
       
       // [수정] 데이터 꼬임 문제를 해결하기 위해 상태 전체를 초기화하는 강력한 리셋 기능
       resetCampus: () => {
-        console.warn("데이터 무결성 문제로 모든 설정을 초기화합니다.");
+        // console.warn("데이터 무결성 문제로 모든 설정을 초기화합니다.");
         set(initialState, true); // true는 상태를 덮어쓰라는 의미
       },
 
+      toggleBookmarkPin: () => set((state) => ({ isBookmarkPinned: !state.isBookmarkPinned })),
       setNameCash : (nameKey) => set({ userName : nameKey}),
       setYearCash : (yearKey) => set({ enterYear : yearKey}),
       changeBg: () => set((state) => ({ isDarkMode: !state.isDarkMode })),
+      setLastSeenNoticeId: (id) => set({ lastSeenNoticeId: id }),
+      increaseBookmark: () => set((state) => ({
+        customBookmarkCount: Math.min(state.customBookmarkCount + 2, 8)
+      })),
+      decreaseBookmark: () => set((state) => ({
+        customBookmarkCount: Math.max(state.customBookmarkCount - 2, 4)
+      })),
     }),
     {
       name: 'hufs-clock-settings', // 저장될 키 이름

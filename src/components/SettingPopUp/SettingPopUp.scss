@@ -5,7 +5,7 @@
   -webkit-backdrop-filter: blur(5px);
   border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 
+  box-shadow:
     0 8px 32px rgba(0, 0, 0, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.5),
     inset 0 -1px 0 rgba(255, 255, 255, 0.1),
@@ -15,7 +15,7 @@
 }
 
 %glass-card::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -30,7 +30,7 @@
 }
 
 %glass-card::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -44,216 +44,264 @@
   );
 }
 
-@font-face{
-  font-family:'hufs-font-m';
-  src : url(../../../public/한국외대체M.ttf)
+@font-face {
+  font-family: "hufs-font-m";
+  src: url(../../../public/한국외대체M.ttf);
 }
 
 .setting-container {
-    @extend %glass-card;
-    width: 350px;
-    height: 180px;
-    position: fixed;
-    bottom: 40px;
-    right: 20px;
-    padding: 20px;
-    padding-top: 15px;
-    color: white;
-    font-family: 'hufs-font-m';
-    overflow: visible;
-    transition: all 0.5s ease;
-    visibility: hidden;
-    opacity: 0;
+  @extend %glass-card;
+
+  &::after {
+    display: none;
+  }
+  width: 350px;
+  //   height: 180px;
+  position: fixed;
+  bottom: 40px;
+  right: 20px;
+  z-index: 5;
+  padding: 20px;
+  padding-top: 15px;
+  color: white;
+  font-family: "hufs-font-m";
+  overflow: visible;
+  transition: all 0.5s ease;
+  visibility: hidden;
+  opacity: 0;
 }
 
 .setting-header {
-    font-size: 20px;
-    margin-bottom: 10px;
-    font-family: 'hufs-font-m';
+  font-size: 20px;
+  margin-bottom: 10px;
+  font-family: "hufs-font-m";
 }
 
 .setting-please {
-    margin-bottom: 20px;
-    font-family: 'hufs-font-m';
+  margin-bottom: 20px;
+  font-family: "hufs-font-m";
+}
+
+.setting-bookmark-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.bookmark-count-control {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.bookmark-count-btn {
+  width: 30px;
+  height: 30px;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: white;
+  font-family: "hufs-font-m";
+  font-size: 18px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  line-height: 1;
+
+  &:hover:not(:disabled) {
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+
+  &:disabled {
+    opacity: 0.3;
+    cursor: default;
+  }
+}
+
+.bookmark-count-num {
+  font-family: "hufs-font-m";
+  font-size: 16px;
+  min-width: 28px;
+  text-align: center;
 }
 
 #input-name {
-    font-family: 'hufs-font-m';
-    width: 150px;
-    height: 30px;
-    border-radius: 5px;
-    background-color: rgba(0, 0, 0, 0.3);
-    color: white;
-    border: none;
-    margin-right: 10px;
-    padding: 5px;
-    font-size: 16px;
+  font-family: "hufs-font-m";
+  width: 150px;
+  height: 30px;
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: white;
+  border: none;
+  margin-right: 10px;
+  padding: 5px;
+  font-size: 16px;
 }
 
 #input-name:focus {
-    background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.6);
 }
 
-#input-number{
-    font-family: 'hufs-font-m';
-    border-radius: 5px;
-    background-color: rgba(0, 0, 0, 0.3);
-    color: white;
-    height: 30px;
-    width: 90px;
-    padding: 8px;
-    border: none;
-    margin-right: 10px;
-    position: relative;
-    cursor: pointer;
+#input-number {
+  font-family: "hufs-font-m";
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: white;
+  height: 30px;
+  width: 90px;
+  padding: 8px;
+  border: none;
+  margin-right: 10px;
+  position: relative;
+  cursor: pointer;
 }
 
 #input-number::after {
-    content: '△';
-    font-size: 10px;
-    width: 13px;
-    background-color: rgba(0, 0, 0, 0.4);
-    display: block;
-    height: 30px;
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    text-align: center;
-    align-content: center;
-    border-radius: 0 5px 5px 0;
+  content: "△";
+  font-size: 10px;
+  width: 13px;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: block;
+  height: 30px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  text-align: center;
+  align-content: center;
+  border-radius: 0 5px 5px 0;
 }
 
 #input-number:hover {
-    background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.6);
 }
 
 .input-number-options {
+  width: 100%;
+  height: 80px;
+  overflow-y: auto;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.8);
+  bottom: 100%;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
+  border-radius: 5px;
+  padding: 3px;
+  font-family: "hufs-font-m";
+
+  li {
+    display: block;
     width: 100%;
-    height: 80px;
-    overflow-y: auto;
-    position: absolute;
-    background-color: rgba(0, 0, 0, 0.8);
-    bottom: 100%;
-    left: 0;
-    right: 0;
-    display: flex;
-    flex-direction: column;
-    padding: 0;
-    margin: 0;
-    border-radius: 5px;
-    padding:3px;
-    font-family: 'hufs-font-m';
-    
-    li {
-        display: block;
-        width: 100%;
-        text-align: left;
-        border-radius: 3px;
-        cursor: pointer;
-        height: 25px;
-        padding: 5px;
-        font-family: 'hufs-font-m';
-    }
-    li:hover {
-        background-color: rgba(255, 255, 255, 0.5);
-    }
+    text-align: left;
+    border-radius: 3px;
+    cursor: pointer;
+    height: 25px;
+    padding: 5px;
+    font-family: "hufs-font-m";
+  }
+  li:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+  }
 }
 
 ::-webkit-scrollbar {
-    width: 5px;
+  width: 5px;
 }
 ::-webkit-scrollbar-thumb {
-background-color: white;
-border-radius: 10px;
-margin: 5px;
+  background-color: white;
+  border-radius: 10px;
+  margin: 5px;
 }
 ::-webkit-scrollbar-track {
-background-color: black;
-border-radius: 0px 3px 3px 0px;
-margin: 2px;
+  background-color: black;
+  border-radius: 0px 3px 3px 0px;
+  margin: 2px;
 }
 
 .setting-save-btn {
-    height: 30px;
-    width: 50px;
-    background: none;
-    color: white;
-    font-family: 'hufs-font-m';
-    font-size: 16px;
-    border-radius: 5px;
-    border: none;
-    background-color: rgba(0, 0, 0, 0.4);
-    cursor: pointer;
-    position: relative;
+  height: 30px;
+  width: 50px;
+  background: none;
+  color: white;
+  font-family: "hufs-font-m";
+  font-size: 16px;
+  border-radius: 5px;
+  border: none;
+  background-color: rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  position: relative;
 }
 
 .setting-save-btn:hover {
-    background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
-.setting-campus{
-    align-content: center;
-    width: 100px;
-    font-family: 'hufs-font-m';
+.setting-campus {
+  align-content: center;
+  width: 100px;
+  font-family: "hufs-font-m";
 }
 
 .setting-campus-container {
-    display: flex;
-    flex-direction: row;
-    margin-top: 20px;
-    align-content: center;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+  align-content: center;
+  justify-content: space-between;
 }
 
 .campus-choose-btn {
-    width: 100px;
-    height: 30px;
-    background: none;
-    color: white;
-    font-family: 'hufs-font-m';
-    letter-spacing: 1.3px;
-    border-radius: 5px;
-    border: none;
-    background-color: rgba(0, 0, 0, 0.3);
-    cursor: pointer;
+  width: 100px;
+  height: 30px;
+  background: none;
+  color: white;
+  font-family: "hufs-font-m";
+  letter-spacing: 1.3px;
+  border-radius: 5px;
+  border: none;
+  background-color: rgba(0, 0, 0, 0.3);
+  cursor: pointer;
 }
 
 .campus-choose-btn:hover {
-    background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 .complete-popup {
-    position: absolute;
-    cursor: default;
-    width: 100%;
-    bottom: 25%;
-    left: 0;
-    right: 0;
-    visibility: hidden;
+  position: absolute;
+  cursor: default;
+  width: 100%;
+  bottom: 25%;
+  left: 0;
+  right: 0;
+  visibility: hidden;
 }
 
 .animation {
-    animation-name: popUp;
-    animation-duration: 1s;
-}   
+  animation-name: popUp;
+  animation-duration: 1s;
+}
 
 @keyframes popUp {
-    0%{
-        transform: translateY(0);
-        opacity: 0;
-        visibility: visible;
-    }
-    50% {
-        transform: translateY(-30px);
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(-30px);
-        opacity: 0;
-    }
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+    visibility: visible;
+  }
+  50% {
+    transform: translateY(-30px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
 }
 
 .appear {
-    visibility: visible;
-    opacity: 1;
+  visibility: visible;
+  opacity: 1;
 }

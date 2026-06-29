@@ -113,13 +113,13 @@ export default function TimeSearch() {
         setLoading(true);
         try {
             const response = await axios.post('https://hufs-clock-api.vercel.app/api/timetable', params);
-            console.log(response.data)
+            // console.log(response.data)
             setLoading(false);
             setLoadedLssn(response.data)
             setLoadFail(false);
 
         } catch(error) {
-            console.error('검색 실패 ㅜㅜ', error)
+            // console.error('검색 실패 ㅜㅜ', error)
             alert('데이터 불러오기 실패ㅜㅜ')
             setLoadFail(true);
     }

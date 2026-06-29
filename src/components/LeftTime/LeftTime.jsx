@@ -5,8 +5,8 @@ import './LeftTime.scss'
 export default function LeftTime() {
     const { data, isError, isLoading } = useData();
 
-    if (isLoading) return <div className="loading-text">불러오는 중....</div>;
-    if (isError) return <div className="error-text"></div>;
+    if (isLoading && !data) return <div className="loading-text">불러오는 중....</div>;
+    if (isError && !data) return <div className="error-text">네트워크 연결을 확인해주세요.</div>;
     if (!data) return null;
 
     const schedule = data.schedule;

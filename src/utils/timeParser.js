@@ -62,7 +62,7 @@ export const parseTimeData = (timeString) => {
   }
 
   if (slots.length === 0) {
-    console.warn(`시간 파싱에 실패했습니다: "${timeString}"`);
+    // console.warn(`시간 파싱에 실패했습니다: "${timeString}"`);
     return null;
   }
 

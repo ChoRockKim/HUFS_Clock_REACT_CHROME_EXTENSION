@@ -1,50 +1,49 @@
 import './Weather.scss'
 import useWeatherData from '../../api/weather'
 import useSettingStore from '../../store/useSettingStore'
-import { useEffect, useState } from 'react';
+
+const SKY_TEXT = { 1: '맑음', 3: '구름많음', 4: '흐림' };
+const RAIN_TEXT = { 1: '그리고 비', 2: '그리고 눈/비', 3: '그리고 눈', 4: '그리고 소나기' };
 
 export default function Weather() {
     const { data, isError, isLoading } = useWeatherData();
+    const { selectedCampus } = useSettingStore();
     const weather = data;
-    const campusDisplay = isLoading ? '서울 동대문구' : (weather?.campus == 'SEOUL' ? '서울 동대문구' : '경기 용인시');
+
+    // 2번 수정: 로딩 중에도 store의 캠퍼스 값으로 표시
+    const campusDisplay = selectedCampus === 'GLOBAL' ? '경기 용인시' : '서울 동대문구';
+
     const curTemp = weather?.data?.temp;
     const curSkyNum = weather?.data?.sky;
     const curRainNum = weather?.data?.rainType;
     const maxTemp = weather?.data?.tmx;
     const minTemp = weather?.data?.tmn;
     const humidity = weather?.data?.humidity;
-    let [curSky, setCurSky] = useState('')
-    let curRain = '';
 
-    useEffect(()=> {
-        if (curSkyNum == 1) {
-            setCurSky('맑음')
-        } else if (curSkyNum == 3) {
-            setCurSky('구름많음')
-        } else if (curSkyNum == 4) {
-            setCurSky('흐림')
-        }
-    }, [curSkyNum])
+    // 1번 수정: state/useEffect 제거 → 렌더 중 직접 계산
+    const curSky = SKY_TEXT[curSkyNum] ?? '';
+    // 4번 수정: rainType이 있으면 하늘 상태와 무관하게 강수 텍스트 표시
+    const curRain = RAIN_TEXT[curRainNum] ?? '';
 
+    // 3번 수정: 로딩/에러 시 캐시 데이터 있으면 그대로 표시
+    if (isLoading && !data) {
+        return (
+            <div className="weather-main-container">
+                <div className="left-side">
+                    <div className="cur-temp">로딩 중...</div>
+                    <div className="place-where">{campusDisplay}</div>
+                </div>
+            </div>
+        )
+    }
 
-    if (curSkyNum != 1) {
-        if (curRainNum == 1) {
-            curRain = '그리고 비'
-        } else if (curRainNum == 2) {
-            curRain = '그리고 눈/비'
-        } else if (curRainNum == 3) {
-            curRain = '그리고 눈'
-        } else if (curRainNum == 4) {
-            curRain = '그리고 소나기'
-        }
-    } 
     return (
         <>
         <div className="weather-main-container">
             <div className="left-side">
-                <div className="cur-temp"><span className='sky-icon'><SkyIcon weather = {weather}/></span>
-                <span>  {curTemp != null ? `${curTemp}°` : "로딩 중..."}</span></div>
-                <div className="place-where">{campusDisplay}</div>            
+                <div className="cur-temp"><span className='sky-icon'><SkyIcon weather={weather}/></span>
+                <span>  {curTemp != null ? `${curTemp}°` : '...'}</span></div>
+                <div className="place-where">{campusDisplay}</div>
                 <div className="sky-info">
                     <span className="cur-sky">{curSky} {curRain}</span>
                 </div>
@@ -61,33 +60,30 @@ export default function Weather() {
 }
 
 function SkyIcon({ weather }) {
-    if (!weather?.data) return null; // 데이터가 없으면 아무것도 안 그림
+    if (!weather?.data) return null;
 
     const curTime = parseInt(weather?.forecastTime?.split(' ')[1]);
     const { sky: curSkyInfo, rainType } = weather.data;
-    const isDay = curTime > 6 && curTime < 18; // 6시~18시를 낮으로 정의
+    const isDay = curTime > 6 && curTime < 18;
     const rType = parseInt(rainType);
 
-    // 1. 강수 우선 처리 (비/눈이 오면 하늘 상태보다 우선)
     if (rType > 0) {
         const rainIcons = {
-            1: "bi-cloud-hail-fill",          // 비
-            2: "bi-cloud-sleet-fill",         // 비/눈
-            3: "bi-cloud-snow-fill",          // 눈
-            4: "bi-cloud-lightning-rain-fill" // 소나기
+            1: "bi-cloud-hail-fill",
+            2: "bi-cloud-sleet-fill",
+            3: "bi-cloud-snow-fill",
+            4: "bi-cloud-lightning-rain-fill"
         };
         return <i className={`bi ${rainIcons[rType] || "bi-cloud-rain-fill"}`}></i>;
     }
-    // 2. 비 안 올 때: 하늘 상태별 아이콘 (낮/밤 구분)
-    if (curSkyInfo == 1) { // 맑음
+    if (curSkyInfo == 1) {
         return <i className={`bi ${isDay ? "bi-brightness-high-fill" : "bi-moon-stars-fill"}`}></i>;
-    } 
-    if (curSkyInfo == 3) { // 구름많음
+    }
+    if (curSkyInfo == 3) {
         return <i className={`bi ${isDay ? "bi-cloud-sun-fill" : "bi-cloud-moon-fill"}`}></i>;
-    } 
-    if (curSkyInfo == 4) { // 흐림
+    }
+    if (curSkyInfo == 4) {
         return <i className="bi bi-cloud-fill"></i>;
     }
-    // 기본값 (예외 상황)
     return <i className="bi bi-question-circle"></i>;
 }

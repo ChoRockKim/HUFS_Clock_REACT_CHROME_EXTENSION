@@ -143,6 +143,67 @@ html, body {
         transform: translateY(-2px);
     }
 
+@keyframes toastSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes toastSlideUp {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+}
+
+.glass-toast-show {
+  animation: toastSlideDown 0.35s ease forwards;
+}
+
+.glass-toast-hide {
+  animation: toastSlideUp 0.25s ease forwards;
+}
+
+// SweetAlert2 글래스모피즘 토스트
+.swal2-container.swal2-top {
+  width: auto !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+}
+
+.glass-toast.swal2-toast {
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25),
+              inset 0 1px 0 rgba(255, 255, 255, 0.4) !important;
+  padding: 14px 20px !important;
+  min-width: 360px !important;
+}
+
+.glass-toast-title {
+  color: white !important;
+  font-family: 'hufs-font-m' !important;
+  font-size: 15px !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4) !important;
+}
+
+.glass-toast .swal2-timer-progress-bar {
+  background: rgba(255, 255, 255, 0.45) !important;
+  border-radius: 0 0 16px 16px !important;
+}
+
 .update-soon {
   font-family: 'hufs-font-m';
   color: white;

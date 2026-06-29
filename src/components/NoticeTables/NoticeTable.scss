@@ -59,13 +59,14 @@ $from-edge: 20px;
 
 .Notice-table-container {
     position: fixed;
+    top: max(110px, calc(100vh - 580px));
     bottom: 180px;
     left: $from-edge;
     @extend %glass-card;
     background-color: rgba(0,0,0,0.15);
     width: 30%;
     min-width: 320px;
-    height: 400px;
+    height: auto;
     overflow-y: scroll;
     overflow-x: hidden;
     padding: 10px;
@@ -83,6 +84,16 @@ $from-edge: 20px;
       padding-left: 20px;
       padding-bottom: 0;
       margin-bottom: 0;
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+
+    .notice-updated-at {
+      font-size: 11px;
+      opacity: 0.45;
+      font-weight: 300;
+      white-space: nowrap;
     }
     .notice-table{
       width: 100%;
@@ -132,9 +143,6 @@ $from-edge: 20px;
       text-align: left;
       align-content: center;
       vertical-align: middle;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
       border-radius: 0 5px 5px 0;
       @extend %text-shadow-basic;
     }
@@ -173,5 +181,32 @@ $from-edge: 20px;
 
 .Notice-table-container::-webkit-scrollbar-thumb:hover {
     background: rgba(255, 255, 255, 0.3);
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);  /* hover 시에는 더 빠른 반응 */
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.notice-title-clip {
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.notice-title-text {
+    display: inline-block;
+    vertical-align: middle;
+    white-space: nowrap;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: none;
+
+    &.scrolling {
+        overflow: visible;
+        text-overflow: clip;
+        animation: notice-marquee var(--scroll-duration, 3s) linear forwards;
+        transition: none;
+    }
+}
+
+@keyframes notice-marquee {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(var(--scroll-amount, 0)); }
 }

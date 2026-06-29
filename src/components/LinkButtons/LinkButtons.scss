@@ -4,7 +4,7 @@
   -webkit-backdrop-filter: blur(5px);
   border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 
+  box-shadow:
     0 8px 32px rgba(0, 0, 0, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.5),
     inset 0 -1px 0 rgba(255, 255, 255, 0.1),
@@ -14,7 +14,7 @@
 }
 
 %glass-card::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -29,7 +29,7 @@
 }
 
 %glass-card::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -43,78 +43,107 @@
   );
 }
 
-@font-face{
-  font-family:'hufs-font-m';
-  src : url(../../../public/한국외대체M.ttf)
+@font-face {
+  font-family: "hufs-font-m";
+  src: url(../../../public/한국외대체M.ttf);
 }
 
 .link-total-container {
-    width: 400px;
-    height: 300px;
-    position: fixed;
-    right: 0;   
-    top: 50%;
-    bottom: 50%;
-    transform: translateY(-50%) translateX(340px);
-    display: flex;
-    transition: all 0.4s;
-    transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1);
-    z-index: 10;
-  }
+  width: 400px;
+  height: 300px;
+  position: fixed;
+  right: 0;
+  top: 50%;
+  bottom: 50%;
+  transform: translateY(-50%) translateX(340px);
+  display: flex;
+  transition: all 0.4s;
+  transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  z-index: 10;
+}
 
 .toggle-appear-box {
-    width: 20%;
-    height: 100%;
-    position: absolute;
+  width: 20%;
+  height: 100%;
+  position: absolute;
 }
 
 .toggle-arrow {
-    @extend %glass-card;
-    background: rgba(0, 0, 0, 0.5);
-    width: 52%;
-    height: 80px;
-    position: absolute;    
-    color: white;
-    align-content: center;
-    padding-left: 1.5px;
-    font-size: 20px;
-    border-radius: 10px 0 0 10px;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    opacity: 1;
+  @extend %glass-card;
+  background: rgba(0, 0, 0, 0.5);
+  width: 52%;
+  height: 80px;
+  position: absolute;
+  color: white;
+  align-content: center;
+  padding-left: 1.5px;
+  font-size: 20px;
+  border-radius: 10px 0 0 10px;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 1;
 }
 
 .link-btn-container {
-    @extend %glass-card;
-    position: absolute;
-    right: 0;
-    width: 80%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.25);
-    border-radius: 15px 0 0 15px;
-    padding: 15px;
-    color: white;
-    font-family: 'hufs-font-m';
-    z-index: 10;
+  @extend %glass-card;
+  position: absolute;
+  right: 0;
+  width: 80%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.25);
+  border-radius: 15px 0 0 15px;
+  padding: 15px;
+  color: white;
+  font-family: "hufs-font-m";
+  z-index: 10;
 }
 
 .appear-toggle {
-    transform: translateY(-50%) translateX(0);
+  transform: translateY(-50%) translateX(0);
+}
 
+.pinned-low {
+  z-index: 1;
 }
 
 .remove-toggle {
-    opacity: 0;
+  opacity: 0;
 }
 
 .toggle-on {
-    transform: translateY(-50%) translateX(325px);
+  transform: translateY(-50%) translateX(325px);
 }
 
 .link-btn-header {
-    font-size: 18px;
-    margin-top: 0;
+  font-size: 18px;
+  margin-top: 0;
+}
+
+.link-pin-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: 5px;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease;
+  line-height: 1;
+
+  &:hover {
+    color: rgba(255, 255, 255, 0.85);
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  &.pinned {
+    color: rgba(255, 255, 255, 0.9);
+  }
 }
 
 .link-btn-area {
@@ -125,7 +154,7 @@
 
 .link-btn-box {
   box-shadow: none;
-  background-color: rgba(0,0,0,0.3);
+  background-color: rgba(0, 0, 0, 0.3);
   border-radius: 10px;
   width: 45%;
   height: 50px;
@@ -135,8 +164,9 @@
   align-content: center;
   cursor: pointer;
   transition: all 0.25s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), 
-                0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.3),
+    0 4px 8px rgba(0, 0, 0, 0.2);
   font-size: 16px;
   z-index: 10;
   position: relative;
@@ -147,7 +177,7 @@
   transform: translateY(-1px);
 }
 
-.prevent-error{
+.prevent-error {
   position: fixed;
   top: 42%;
   right: 320px;
@@ -157,7 +187,7 @@
 
 .custom-container {
   box-shadow: none;
-  background-color: rgba(0,0,0,0.3);  
+  background-color: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   border-radius: 10px;
@@ -165,22 +195,23 @@
   height: 170px;
   z-index: 15;
   padding: 10px;
-  font-family: 'hufs-font-m';
+  font-family: "hufs-font-m";
   color: white;
   position: absolute;
   right: 10px;
   visibility: hidden;
   opacity: 0;
   transition: all 0.5s ease;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), 
-            0 4px 8px rgba(0, 0, 0, 0.2);
+  text-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.3),
+    0 4px 8px rgba(0, 0, 0, 0.2);
 
   div {
     margin-bottom: 5px;
   }
 
   input {
-    font-family: 'hufs-font-m';
+    font-family: "hufs-font-m";
     width: 100%;
     height: 30px;
     border-radius: 5px;
@@ -196,19 +227,19 @@
 
 .link-submit-btn {
   display: block;
-    height: 30px;
-    width: 50px;
-    background: none;
-    color: white;
-    font-family: 'hufs-font-m';
-    font-size: 14px;
-    border-radius: 5px;
-    border: none;
-    background-color: rgba(0, 0, 0, 0.4);
-    cursor: pointer;
-    position: absolute;
-    right: 70px;
-    bottom: 10px;
+  height: 30px;
+  width: 50px;
+  background: none;
+  color: white;
+  font-family: "hufs-font-m";
+  font-size: 14px;
+  border-radius: 5px;
+  border: none;
+  background-color: rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  position: absolute;
+  right: 70px;
+  bottom: 10px;
 }
 
 .link-submit-btn:hover {
@@ -222,19 +253,19 @@
 
 .link-quit-btn {
   display: block;
-    height: 30px;
-    width: 50px;
-    background: none;
-    color: white;
-    font-family: 'hufs-font-m';
-    font-size: 14px;
-    border-radius: 5px;
-    border: none;
-    background-color: rgba(0, 0, 0, 0.4);
-    cursor: pointer;
-    position: absolute;
-    right: 10px;
-    bottom: 10px;
+  height: 30px;
+  width: 50px;
+  background: none;
+  color: white;
+  font-family: "hufs-font-m";
+  font-size: 14px;
+  border-radius: 5px;
+  border: none;
+  background-color: rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
 }
 
 .link-quit-btn:hover {

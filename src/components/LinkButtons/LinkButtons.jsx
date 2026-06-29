@@ -2,13 +2,36 @@ import { useEffect, useState } from 'react'
 import './LinkButtons.scss'
 import useSettingStore from '../../store/useSettingStore'
 import useStopSwiper from '../../hooks/useStopSwiper'
+import Swal from 'sweetalert2'
+
+const linkErrorToast = () =>
+    Swal.fire({
+        toast: true,
+        position: 'top',
+        icon: 'warning',
+        title: '유효하지 않은 링크예요.',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        customClass: { popup: 'glass-toast', title: 'glass-toast-title' },
+        showClass: { popup: 'glass-toast-show' },
+        hideClass: { popup: 'glass-toast-hide' },
+    })
 
 
 export default function LinkButtons() {
     const [isHovering, setIsHovering] = useState(false)
     const [isToggle, setIsToggle] = useState(false)
     const [isCustomOn, setIsCustomOn] = useState(false)
-    const { userLink, updateUserLink, removeUserLink } = useSettingStore()
+    const { userLink, updateUserLink, removeUserLink, customBookmarkCount, isBookmarkPinned: isPinned, toggleBookmarkPin } = useSettingStore()
+
+    const fixedLinks = userLink.filter(link => !link.custom)
+    const storedCustom = userLink.filter(link => link.custom)
+    const customLinks = Array.from({ length: customBookmarkCount }, (_, i) =>
+        storedCustom[i] ?? { id: 4 + i, hotLinkName: '북마크 추가', hotLink: '', custom: true }
+    )
+    const displayedLinks = [...fixedLinks, ...customLinks]
+    const containerHeight = Math.ceil(displayedLinks.length / 2) * 60 + 70
     const [targetId, setTargetId] = useState('')
     const [inputName, setInputName] = useState('')
     const [inputLink, setInputLink] = useState('')
@@ -19,6 +42,7 @@ export default function LinkButtons() {
         e.stopPropagation();
     }
     function handleMouseOut(e){
+        if (isPinned) return;
         setIsHovering(false);
         e.stopPropagation()
     }
@@ -27,7 +51,7 @@ export default function LinkButtons() {
         setIsToggle(true)
     }
     function toggleMouseOut(){
-        if (isCustomOn) return;
+        if (isCustomOn || isPinned) return;
         setIsToggle(false)
     }
     
@@ -39,14 +63,15 @@ export default function LinkButtons() {
     }, [isCustomOn, isHovering, isToggle]);
 
     return (
-        <div className={`link-total-container ${isHovering ? 'appear-toggle' : ''} ${isToggle? 'toggle-on' : ''}`}
+        <div className={`link-total-container ${(isHovering || isPinned) ? 'appear-toggle' : ''} ${(isToggle && !isPinned) ? 'toggle-on' : ''} ${isPinned ? 'pinned-low' : ''}`}
+        style={{ height: containerHeight }}
         {...stopSwiperHandlers}>
         <div style={{position:'relative', width:'100%', height:'100%'}}>
             <div className={`toggle-appear-box`}
             onMouseOver={toggleMouseOver}
             onMouseOut={toggleMouseOut}
             >
-                <div className={`toggle-arrow ${isHovering ? 'remove-toggle' : ''}`}
+                <div className={`toggle-arrow ${(isHovering || isPinned) ? 'remove-toggle' : ''}`}
                 onMouseOver={handleMouseOver}
                 onMouseLeave={(e)=>{;
                     handleMouseOut(e)}}
@@ -64,8 +89,15 @@ export default function LinkButtons() {
             onMouseOut={handleMouseOut}            
             className='link-btn-container'>
             <p className='link-btn-header'>바로가기</p>
+            <button
+                className={`link-pin-btn ${isPinned ? 'pinned' : ''}`}
+                onClick={() => toggleBookmarkPin()}
+                title={isPinned ? '고정 해제' : '고정'}
+            >
+                <i className={`bi ${isPinned ? 'bi-pin-fill' : 'bi-pin'}`}></i>
+            </button>
             <div className='link-btn-area'>
-                {userLink.map((data)=>{
+                {displayedLinks.map((data)=>{
                     return (
                     <ButtonGroup data={data} key={data.id} isCustomOn={isCustomOn}
                     setIsCustomOn={setIsCustomOn} targetId={targetId} setTargetId={setTargetId}/>
@@ -82,7 +114,14 @@ function ButtonGroup({ data, isCustomOn, setIsCustomOn, targetId, setTargetId })
     return(
         <div 
         onClick={()=>{
-            data.hotLink != '' && window.open(data.hotLink);
+            if (data.hotLink != '') {
+                try {
+                    new URL(data.hotLink);
+                    window.open(data.hotLink);
+                } catch {
+                    linkErrorToast();
+                }
+            }
             if (data.hotLink == '') {
                 if (isCustomOn == false) {
                     setTargetId(data.id);
@@ -112,9 +151,16 @@ function ButtonGroup({ data, isCustomOn, setIsCustomOn, targetId, setTargetId })
     )
 }
 
+function normalizeUrl(raw) {
+    const trimmed = raw.trim();
+    if (!trimmed) return trimmed;
+    if (/^https?:\/\//i.test(trimmed)) return trimmed;
+    return 'https://' + trimmed;
+}
+
 function CustomModal({ setIsHovering, handleMouseOver, handleMouseOut,
     isCustomOn, setIsCustomOn, inputLink, inputName, setInputLink, setInputName,
-    targetId, setTargetId }) 
+    targetId, setTargetId })
     {
     const { userLink, updateUserLink, removeUserLink } = useSettingStore()
     
@@ -130,7 +176,7 @@ function CustomModal({ setIsHovering, handleMouseOver, handleMouseOut,
                     <input type="text" placeholder='북마크 이름을 입력해주세요.'
                     value={inputName}
                     onInput={(e)=>{
-                        console.log(e.target.value)
+                        // console.log(e.target.value)
                         setInputName(e.target.value)
                     }}
                     ></input>
@@ -155,9 +201,9 @@ function CustomModal({ setIsHovering, handleMouseOver, handleMouseOut,
                             const userLinkObject = {
                                 id : targetId,
                                 hotLinkName : inputName,
-                                hotLink : inputLink,
+                                hotLink : normalizeUrl(inputLink),
                                 custom : true }
-                                console.log('일단 추가되긴 함')
+                                // console.log('일단 추가되긴 함')
                                 updateUserLink(userLinkObject);
                                 setInputLink(''); setInputName('');
                                 setIsCustomOn(false);

@@ -7,8 +7,8 @@ export default function LibrarySeats() {
     const seats = data?.data.list;
     const { selectedCampus } = useSettingStore()
 
-    if (isLoading) return <LibrarySeatsSkeleton />
-    if (isError) {
+    if (isLoading && !data) return <LibrarySeatsSkeleton />
+    if (isError && !data) {
         return (
             <div className='seats-main-container'>
                 <div className='seats-header'>
@@ -23,7 +23,7 @@ export default function LibrarySeats() {
         )
     }
 
-    console.log(seats)
+    // console.log(seats)
 
     return (
         <>
