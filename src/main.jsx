@@ -3,36 +3,16 @@ import { createRoot } from 'react-dom/client'
 import { HashRouter } from 'react-router-dom'
 import './index.scss'
 import App from './App.jsx'
-import { QueryClient } from '@tanstack/react-query'
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client'
-import { createAsyncStoragePersister } from '@tanstack/query-async-storage-persister'
-
-// 1-1. 쿼리 클라이언트 설정
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      gcTime: 1000 * 60 * 60 * 24, 
-      staleTime: 1000 * 60 * 5, 
-    },
-  },
-})
-
-// 1-2. AsyncStorage 래퍼 생성
-const localStoragePersister = {
-  getItem: (key) => Promise.resolve(window.localStorage.getItem(key)),
-  setItem: (key, value) => Promise.resolve(window.localStorage.setItem(key, value)),
-  removeItem: (key) => Promise.resolve(window.localStorage.removeItem(key)),
-}
-
-// 1-3. 퍼시스터 생성
-const persister = createAsyncStoragePersister({
-  storage: localStoragePersister, 
-})
+import { queryClient, persistOptions } from './queryClient.js'
 
 createRoot(document.getElementById('root')).render(
-<PersistQueryClientProvider 
-    client={queryClient} 
-    persistOptions={{ persister }}
+<PersistQueryClientProvider
+    client={queryClient}
+    persistOptions={persistOptions}
+    onError={() => {
+      console.warn('[cache] 오프라인 캐시 복원 실패 — 캐시가 초기화되었습니다.')
+    }}
   >
   <StrictMode>
     <HashRouter>

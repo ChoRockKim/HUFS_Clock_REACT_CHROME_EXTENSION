@@ -30,7 +30,18 @@ App.jsx
 ### 전역 상태 — `src/store/useSettingStore.js`
 Zustand + persist 미들웨어. 크롬 환경에서는 `chrome.storage.local`, 로컬 개발 환경에서는 `localStorage`를 자동 전환하는 `smartStorageAdapter`를 통해 저장.
 
-저장 키: `isDarkMode`, `selectedCampus` (`'SEOUL'` | `'GLOBAL'`), `userName`, `enterYear`, `inCartCourse` (시간표 장바구니), `userLink` (8개 북마크).
+저장 키:
+| 키 | 타입 | 설명 |
+|---|---|---|
+| `selectedCampus` | `'SEOUL'` \| `'GLOBAL'` | 캠퍼스 선택 |
+| `userName` | string | 사용자 이름 |
+| `enterYear` | string | 입학년도 |
+| `isDarkMode` | boolean | 다크모드 여부 |
+| `inCartCourse` | array | 시간표 장바구니 |
+| `userLink` | array | 북마크 링크 (고정 4개 + 커스텀 최대 8개, id 0~11) |
+| `customBookmarkCount` | number | 표시할 커스텀 북마크 수 (기본 4, 최소 4, 최대 8, 2개 단위) |
+| `lastSeenNoticeId` | number \| null | 마지막으로 본 앱 공지 id |
+| `isBookmarkPinned` | boolean | 바로가기 패널 고정 여부 |
 
 캠퍼스 값은 반드시 문자열 `'SEOUL'` 또는 `'GLOBAL'`이어야 한다. 레거시 객체가 들어오면 `App.jsx`가 감지해 `resetCampus()`로 초기화.
 
@@ -42,12 +53,30 @@ TanStack React Query 5 + `PersistQueryClientProvider`로 캐시를 IndexedDB(`lo
 
 | 훅 | 파일 | 캐시 | 설명 |
 |---|---|---|---|
-| `useData()` | `api/request.js` | staleTime 0 | 학교 종합 데이터 (공지·학식·학사일정) |
+| `useData()` | `api/request.js` | 30분 | 학교 종합 데이터 (공지·학식·학사일정) |
 | `useBundleData()` | `hooks/useSchoolData.jsx` | 5분 | 위와 동일, bundle 엔드포인트 |
 | `useLibraryData()` | `api/library.js` / `hooks/useSchoolData.jsx` | 1분 | 도서관 열람실 여석 |
+| `useWeatherData()` | `api/weather.js` | 10분 | 날씨 (캠퍼스별) |
+| `useAppNotices()` | `api/appNotices.js` | 0 (항상 최신) | 운영자 공지 |
 | `fetchTimeTable()` | `api/timeTable.js` | — | 시간표 검색 (POST, React Query 미사용) |
 
 외부 API 서버는 `https://hufs-clock-api.vercel.app` 단일 오리진.
+
+오프라인/에러 처리 패턴: `isLoading && !data` / `isError && !data`로 캐시가 있으면 캐시를 그대로 표시하고, 캐시가 없을 때만 로딩·에러 UI를 노출한다.
+
+### 앱 공지 시스템
+- 백엔드: `Hufs_Clock_API/app_notices.json`에 공지 배열 직접 편집 → `GET /api/app-notices`로 제공
+- 프론트: `src/hooks/useAppNoticeAlert.jsx` — `latest.id > lastSeenNoticeId`이면 SweetAlert2 글래스모피즘 토스트 표시 후 id 저장
+- `App.jsx`에서 `useAppNoticeAlert()` 호출
+
+### 바로가기(북마크) — `src/components/LinkButtons/LinkButtons.jsx`
+- 고정 4개(id 0~3) + 커스텀 슬롯(id 4~11). `customBookmarkCount`(4~8)만큼 커스텀 슬롯을 가상으로 생성하고 `storedCustom[i] ?? 빈슬롯` 패턴으로 렌더링.
+- 우상단 핀 버튼으로 패널 고정 가능. 고정 시 `z-index: 1`로 낮아져 다른 UI 뒤로 들어감.
+- 커스텀 북마크 추가 시 URL에 `https://`가 없으면 자동 prefix. `new URL()` 검사 실패 시 토스트 에러.
+- 삭제 시 `removeUserLink`가 해당 슬롯을 `'북마크 추가'` 빈 상태로 리셋 (데이터 손실 없음).
+
+### SweetAlert2 토스트 스타일
+`src/App.scss`에 `.glass-toast`, `.glass-toast-title`, `.glass-toast-show`, `.glass-toast-hide` 클래스 정의. 모든 toast는 이 클래스를 공통으로 사용한다.
 
 ### 시간표 기능
 - `TimeSearch.jsx` — 검색 조건 입력, `deptCode.js`에서 학과코드 목록 참조
@@ -61,3 +90,4 @@ API 응답 `data.schedule`의 `first_start`, `first_end`, `second_start`, `secon
 
 ### 스타일
 컴포넌트마다 동명의 `.scss` 파일이 쌍으로 존재. 전역 스타일은 `src/index.scss`, App 레벨 배경·레이아웃은 `src/App.scss`.
+글래스모피즘 공통 스타일은 각 `.scss` 파일 상단의 `%glass-card` placeholder로 정의하고 `@extend`로 사용.
