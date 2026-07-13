@@ -204,6 +204,16 @@ html, body {
   border-radius: 0 0 16px 16px !important;
 }
 
+.glass-toast .swal2-close {
+  color: rgba(255, 255, 255, 0.6) !important;
+  transition: color 0.2s;
+
+  &:hover {
+    color: rgba(255, 255, 255, 0.95) !important;
+    background: transparent !important;
+  }
+}
+
 .update-soon {
   font-family: 'hufs-font-m';
   color: white;

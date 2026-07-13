@@ -1,6 +1,6 @@
-@font-face{
-  font-family:'hufs-font-m';
-  src : url(../../public/한국외대체M.ttf)
+@font-face {
+  font-family: "hufs-font-m";
+  src: url(../../public/한국외대체M.ttf);
 }
 
 // 글래스모피즘 변수 저장
@@ -10,7 +10,7 @@
   -webkit-backdrop-filter: blur(5px);
   border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 
+  box-shadow:
     0 8px 32px rgba(0, 0, 0, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.5),
     inset 0 -1px 0 rgba(255, 255, 255, 0.1),
@@ -20,7 +20,7 @@
 }
 
 %glass-card::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -35,7 +35,7 @@
 }
 
 %glass-card::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -50,54 +50,78 @@
 }
 
 .scroll-down {
-    font-family: 'hufs-font-m';
-    font-size: 14px;
-    color: white;
-    display: block;
-    position: fixed;
-    text-align: center;
-    bottom: 5px;
-    left: 0;
-    right: 0;
-    width: 350px;
-    margin-left: auto;
-    margin-right: auto;
-    text-shadow: 0 0 4px rgba(0, 0, 0, 1), 
-               0 0 8px rgba(0, 0, 0, 1);
+  font-family: "hufs-font-m";
+  font-size: 14px;
+  color: white;
+  display: block;
+  position: fixed;
+  text-align: center;
+  bottom: 5px;
+  left: 0;
+  right: 0;
+  width: 350px;
+  margin-left: auto;
+  margin-right: auto;
+  text-shadow:
+    0 0 4px rgba(0, 0, 0, 1),
+    0 0 8px rgba(0, 0, 0, 1);
 }
 
 .show-meal-btn {
-    position: fixed;
-    top: 20px;
-    right: 130px;
-    @extend %glass-card;
-    border-radius: 10px;
-    color: white;
-    font-family: 'hufs-font-m';
-    font-size: 17px;
-    width: 120px;
-    height: 40px;
-    text-align: center;
-    align-content: center;
-    cursor: pointer;
-    transition: all 0.25s ease;
+  position: fixed;
+  top: 20px;
+  right: 130px;
+  @extend %glass-card;
+  border-radius: 10px;
+  color: white;
+  font-family: "hufs-font-m";
+  font-size: 17px;
+  width: 120px;
+  height: 40px;
+  text-align: center;
+  align-content: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
 }
 
 .show-meal-btn:hover {
-        background-color: rgba(255, 255, 255, 0.2);
-        transform: translateY(-2px);
-    }
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.show-notice-btn {
+  position: fixed;
+  top: 20px;
+  right: 260px;
+  @extend %glass-card;
+  border-radius: 10px;
+  color: white;
+  font-family: "hufs-font-m";
+  font-size: 17px;
+  width: 120px;
+  height: 40px;
+  text-align: center;
+  align-content: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.show-notice-btn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
 
 .setting-btn {
   position: fixed;
   bottom: 10px;
   right: 20px;
   font-size: 18px;
-  font-family: 'hufs-font-m';
+  font-family: "hufs-font-m";
   background: none;
   border: none;
   cursor: pointer;
   color: white;
-  text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.8), 
-                5px 4px 8px rgba(0, 0, 0, 0.8);
+  text-shadow:
+    5px 5px 10px rgba(0, 0, 0, 0.8),
+    5px 4px 8px rgba(0, 0, 0, 0.8);
 }
