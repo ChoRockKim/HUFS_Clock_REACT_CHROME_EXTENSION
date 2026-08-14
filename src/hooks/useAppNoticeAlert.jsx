@@ -23,9 +23,10 @@ function fireNoticeToast(message) {
 
 export default function useAppNoticeAlert() {
     const { data: notices } = useAppNotices();
-    const { lastSeenNoticeId, setLastSeenNoticeId } = useSettingStore();
+    const { lastSeenNoticeId, setLastSeenNoticeId, hasHydrated } = useSettingStore();
 
     useEffect(() => {
+        if (!hasHydrated) return;
         if (!notices || notices.length === 0) return;
 
         const latest = notices[0];
@@ -34,7 +35,7 @@ export default function useAppNoticeAlert() {
             fireNoticeToast(latest.message);
             setLastSeenNoticeId(latest.id);
         }
-    }, [notices]);
+    }, [notices, hasHydrated]);
 }
 
 // 버튼 클릭으로 최신 공지를 다시 띄우기 위한 훅 (읽음 여부와 무관하게 항상 표시)

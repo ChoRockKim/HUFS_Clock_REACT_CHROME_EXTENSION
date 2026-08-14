@@ -13,5 +13,7 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     setupFiles: './src/setupTests.js',
+    // e2e/는 Playwright가 실행하므로 vitest 대상에서 제외한다
+    exclude: ['node_modules', 'dist', 'e2e'],
   },
 })
