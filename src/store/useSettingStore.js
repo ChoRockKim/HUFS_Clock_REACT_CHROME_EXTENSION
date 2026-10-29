@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
+import { getBackgrounds } from '../constants/campusConfig';
 
 const STORAGE_NAME = 'hufs-clock-settings';
 
@@ -72,7 +73,7 @@ const smartStorageAdapter = {
 
 // --- 초기 상태 정의 ---
 const initialState = {
-  isDarkMode: false,
+  bgIndex: 0, // 배경 사진 순번 (구버전 저장 데이터에는 없으므로 얕은 병합 시 이 초기값이 쓰인다)
   selectedCampus: null,
   userName: null,
   enterYear : null,
@@ -157,7 +158,12 @@ const useSettingStore = create(
       toggleBookmarkPin: () => set((state) => ({ isBookmarkPinned: !state.isBookmarkPinned })),
       setNameCash : (nameKey) => set({ userName : nameKey}),
       setYearCash : (yearKey) => set({ enterYear : yearKey}),
-      changeBg: () => set((state) => ({ isDarkMode: !state.isDarkMode })),
+      changeBg: () => set((state) => {
+        const count = getBackgrounds(state.selectedCampus).length;
+        if (count < 1) return state;
+        const current = Number.isInteger(state.bgIndex) ? state.bgIndex : 0;
+        return { bgIndex: (current + 1) % count };
+      }),
       setLastSeenNoticeId: (id) => set({ lastSeenNoticeId: id }),
       increaseBookmark: () => set((state) => ({
         customBookmarkCount: Math.min(state.customBookmarkCount + 2, 8)

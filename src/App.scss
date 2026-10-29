@@ -101,25 +101,6 @@ html, body {
     scroll-snap-align: start;
 }
 
-.hufs-bright-img {
-    background-image: url(./assets/background_picture.jpg);
-    filter:brightness(80%)
-}
-
-.hufs-dark-img {
-    background-image: url(./assets/night_background.jpg);
-    filter: brightness(100%);
-}
-
-.hufs-global-bright {
-  background-image: url(./assets/글캠\ 낮사진.jpg);
-  filter: brightness(95%)
-}
-
-.hufs-global-dark {
-  background-image: url(./assets/글캠\ 밤사진예쁜거.jpg);
-}
-
 .bg-change-btn {
     position: fixed;
     top: 20px;

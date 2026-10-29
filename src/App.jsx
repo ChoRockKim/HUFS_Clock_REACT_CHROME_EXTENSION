@@ -7,13 +7,13 @@ import 'swiper/css/pagination';
 import { Mousewheel, Pagination } from 'swiper/modules';
 import useSettingStore from './store/useSettingStore';
 import IntroSelect from './pages/IntroSelect';
-import { CAMPUS_DATA } from './constants/campusConfig';
+import { CAMPUS_DATA, resolveBgIndex } from './constants/campusConfig';
 import SubPage1 from './pages/SubPage1';
 import useAppNoticeAlert from './hooks/useAppNoticeAlert';
 
 function App() {
 
-  const {selectedCampus, isDarkMode, changeBg, resetCampus} = useSettingStore()
+  const {selectedCampus, bgIndex, changeBg, resetCampus} = useSettingStore()
   useAppNoticeAlert()
 
   // 로컬 스토리지에 저장된 레거시 데이터(객체)일 경우를 대비하여 campusKey를 안전하게 추출합니다.
@@ -33,26 +33,13 @@ function App() {
     return <IntroSelect />;
   }
 
-  let bgImage = null;
-
-  if (currentConfig.name == '글로벌캠퍼스'){
-    if (isDarkMode) {
-      bgImage = 'hufs-global-dark'
-    } else {
-      bgImage = 'hufs-global-bright'
-    }
-  } else {
-    if (isDarkMode) {
-      bgImage = 'hufs-dark-img'
-    } else {
-      bgImage = 'hufs-bright-img'
-    }
-  }
+  const backgrounds = currentConfig.background;
+  const bgImage = backgrounds[resolveBgIndex(bgIndex, backgrounds.length)];
 
   return (
     // 메인 배경 사진 설정
     <div className="app-container">
-      <div className={`main-background-image-container ${bgImage}`}>
+      <div className="main-background-image-container" style={{ backgroundImage: `url("${bgImage}")` }}>
       </div>
 
       {/* Swiper.js 설정 */}
@@ -77,7 +64,7 @@ function App() {
     <SwiperSlide>
 
       <section className="main-page-section">      
-        <button className="bg-change-btn" onClick={()=>{changeBg()}}>다크모드</button>
+        <button className="bg-change-btn" onClick={()=>{changeBg()}}>배경변경</button>
         <MainPage/>
       </section>
     </SwiperSlide>

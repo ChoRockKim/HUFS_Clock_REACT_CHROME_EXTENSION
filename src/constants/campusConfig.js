@@ -14,10 +14,8 @@ export const CAMPUS_DATA = {
       bundle: '/api/data',
       library: '/api/library',
     },
-    background: {
-      day: seoulDay,
-      night: seoulNight
-    }
+    // 배경변경 버튼을 누를 때마다 이 순서대로 순환한다. 사진을 추가하려면 배열에 넣기만 하면 된다.
+    background: [seoulDay, seoulNight]
   },
   GLOBAL: {
     id: 'GLOBAL',
@@ -27,9 +25,15 @@ export const CAMPUS_DATA = {
       bundle: '/api/data',
       library: '/api/library',
     },
-    background: {
-      day: globalDay,
-      night: globalNight
-    }
+    background: [globalDay, globalNight]
   }
+};
+
+// 캠퍼스의 배경 사진 목록 (캠퍼스가 없거나 유효하지 않으면 빈 배열)
+export const getBackgrounds = (campusKey) => CAMPUS_DATA[campusKey]?.background ?? [];
+
+// 저장된 bgIndex를 사용 가능한 범위로 보정한다. 숫자가 아니면 0.
+export const resolveBgIndex = (bgIndex, length) => {
+  if (!Number.isInteger(bgIndex) || length < 1) return 0;
+  return ((bgIndex % length) + length) % length;
 };

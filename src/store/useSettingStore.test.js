@@ -190,6 +190,79 @@ describe('useSettingStore 스토리지 안전성', () => {
 
     const finalState = JSON.parse(disk[STORE_KEY]).state
     expect(finalState.selectedCampus).toBe('SEOUL')
-    expect(finalState.isDarkMode).toBe(false) // 탭 A의 변경도 함께 살아있다
+    expect(finalState.bgIndex).toBe(1) // 탭 A의 변경도 함께 살아있다
+  })
+})
+
+describe('배경 순환 (bgIndex)', () => {
+  it('isDarkMode만 있고 bgIndex가 없는 구버전 저장 데이터도 나머지 설정이 그대로 보존된다', async () => {
+    const legacy = JSON.parse(makeSavedState())
+    legacy.state.inCartCourse = [{ c_id: '123' }]
+    expect(legacy.state.bgIndex).toBeUndefined()
+    const { chrome, disk } = createFakeChrome({ initial: { [STORE_KEY]: JSON.stringify(legacy) } })
+    vi.stubGlobal('chrome', chrome)
+
+    const store = await loadStore()
+    await vi.waitFor(() => expect(store.getState().hasHydrated).toBe(true), { timeout: 2000 })
+
+    const s = store.getState()
+    expect(s.bgIndex).toBe(0)
+    expect(s.userName).toBe('테스트유저')
+    expect(s.enterYear).toBe('20')
+    expect(s.selectedCampus).toBe('GLOBAL')
+    expect(s.inCartCourse).toEqual([{ c_id: '123' }])
+    expect(s.userLink).toEqual(legacy.state.userLink)
+    expect(s.customBookmarkCount).toBe(6)
+
+    // 이후 저장돼도 사용자 데이터가 남아 있다
+    s.changeBg()
+    await vi.waitFor(() => expect(JSON.parse(disk[STORE_KEY]).state.bgIndex).toBe(1), { timeout: 2000 })
+    const saved = JSON.parse(disk[STORE_KEY])
+    expect(saved.version).toBe(1)
+    expect(saved.state.userName).toBe('테스트유저')
+    expect(saved.state.userLink).toEqual(legacy.state.userLink)
+    expect(saved.state.inCartCourse).toEqual([{ c_id: '123' }])
+  })
+
+  it('changeBg가 순환하고 마지막 다음은 0으로 돌아온다', async () => {
+    const { chrome } = createFakeChrome({ initial: { [STORE_KEY]: makeSavedState() } })
+    vi.stubGlobal('chrome', chrome)
+    const store = await loadStore()
+    await vi.waitFor(() => expect(store.getState().hasHydrated).toBe(true), { timeout: 2000 })
+
+    const { CAMPUS_DATA } = await import('../constants/campusConfig.js')
+    for (const campus of ['SEOUL', 'GLOBAL']) {
+      const count = CAMPUS_DATA[campus].background.length
+      store.setState({ selectedCampus: campus, bgIndex: 0 })
+      const seen = []
+      for (let i = 0; i < count; i += 1) {
+        seen.push(store.getState().bgIndex)
+        store.getState().changeBg()
+      }
+      expect(seen).toEqual(Array.from({ length: count }, (_, i) => i))
+      expect(store.getState().bgIndex).toBe(0)
+    }
+  })
+
+  it('범위를 벗어나거나 숫자가 아닌 bgIndex는 보정된다', async () => {
+    const { resolveBgIndex } = await import('../constants/campusConfig.js')
+    expect(resolveBgIndex(0, 2)).toBe(0)
+    expect(resolveBgIndex(1, 2)).toBe(1)
+    expect(resolveBgIndex(5, 2)).toBe(1)
+    expect(resolveBgIndex(-1, 2)).toBe(1)
+    for (const bad of ['1', null, undefined, NaN, 1.5, {}, Infinity]) {
+      expect(resolveBgIndex(bad, 2)).toBe(0)
+    }
+
+    const { chrome } = createFakeChrome({ initial: { [STORE_KEY]: makeSavedState() } })
+    vi.stubGlobal('chrome', chrome)
+    const store = await loadStore()
+    await vi.waitFor(() => expect(store.getState().hasHydrated).toBe(true), { timeout: 2000 })
+    store.setState({ selectedCampus: 'SEOUL', bgIndex: 'abc' })
+    store.getState().changeBg()
+    expect(store.getState().bgIndex).toBe(1)
+    store.setState({ bgIndex: 99 })
+    store.getState().changeBg()
+    expect(store.getState().bgIndex).toBe(0)
   })
 })

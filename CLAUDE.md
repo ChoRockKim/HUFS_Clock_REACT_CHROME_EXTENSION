@@ -36,7 +36,7 @@ Zustand + persist 미들웨어. 크롬 환경에서는 `chrome.storage.local`, �
 | `selectedCampus` | `'SEOUL'` \| `'GLOBAL'` | 캠퍼스 선택 |
 | `userName` | string | 사용자 이름 |
 | `enterYear` | string | 입학년도 |
-| `isDarkMode` | boolean | 다크모드 여부 |
+| `bgIndex` | number | 배경 사진 순번 (0부터, 캠퍼스 사진 수로 순환) |
 | `inCartCourse` | array | 시간표 장바구니 |
 | `userLink` | array | 북마크 링크 (고정 4개 + 커스텀 최대 8개, id 0~11) |
 | `customBookmarkCount` | number | 표시할 커스텀 북마크 수 (기본 4, 최소 4, 최대 8, 2개 단위) |
@@ -46,7 +46,7 @@ Zustand + persist 미들웨어. 크롬 환경에서는 `chrome.storage.local`, �
 캠퍼스 값은 반드시 문자열 `'SEOUL'` 또는 `'GLOBAL'`이어야 한다. 레거시 객체가 들어오면 `App.jsx`가 감지해 `resetCampus()`로 초기화.
 
 ### 캠퍼스 설정 — `src/constants/campusConfig.js`
-`CAMPUS_DATA['SEOUL']`, `CAMPUS_DATA['GLOBAL']` 객체에 API 경로와 배경 이미지가 묶여 있다. 새 캠퍼스를 추가하거나 API 경로를 바꿀 때 이 파일을 수정한다.
+`CAMPUS_DATA['SEOUL']`, `CAMPUS_DATA['GLOBAL']` 객체에 API 경로와 배경 이미지 배열(`background`)이 묶여 있다. "배경변경" 버튼이 `changeBg()`로 `bgIndex`를 `(i+1) % 사진 수`로 순환시키고, `App.jsx`가 `resolveBgIndex()`로 범위를 보정해 인라인 `backgroundImage`로 적용한다. 사진을 추가하려면 배열에 넣기만 하면 된다. 새 캠퍼스를 추가하거나 API 경로를 바꿀 때 이 파일을 수정한다.
 
 ### 데이터 페칭 — `src/api/` + `src/hooks/useSchoolData.jsx`
 TanStack React Query 5 + `PersistQueryClientProvider`로 캐시를 IndexedDB(`localStorage` 래퍼)에 영속화.
