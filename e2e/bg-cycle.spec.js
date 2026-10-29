@@ -10,7 +10,7 @@ const EXT_PATH = path.resolve(__dirname, '../dist')
 const STORAGE_KEY = 'hufs-clock-settings'
 const CAMPUSES = [
   // count는 campusConfig.js의 캠퍼스별 배경 수, files는 순서대로 빌드 산출물 URL에 포함되는 원본 파일명 조각
-  { key: 'SEOUL', label: '서울캠퍼스', count: 3, files: [null, null, 'seoul_snow'] },
+  { key: 'SEOUL', label: '서울캠퍼스', count: 4, files: [null, null, 'seoul_snow', 'seoul_sunset'] },
   { key: 'GLOBAL', label: '글로벌캠퍼스', count: 5, files: [null, null, 'global_snow', 'global_day2', 'global_centennial'] },
 ]
 

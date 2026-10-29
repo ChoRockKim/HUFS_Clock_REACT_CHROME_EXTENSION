@@ -5,6 +5,7 @@ import seoulNight from './../assets/night_background.jpg';
 import globalDay from './../assets/글캠 낮사진.jpg';
 import globalNight from './../assets/글캠 밤사진예쁜거.jpg';
 import seoulSnow from './../assets/seoul_snow.jpg';
+import seoulSunset from './../assets/seoul_sunset.jpg';
 import globalSnow from './../assets/global_snow.jpg';
 import globalDay2 from './../assets/global_day2.jpg';
 import globalCentennial from './../assets/global_centennial.jpg';
@@ -19,7 +20,7 @@ export const CAMPUS_DATA = {
       library: '/api/library',
     },
     // 배경변경 버튼을 누를 때마다 이 순서대로 순환한다. 사진을 추가하려면 배열에 넣기만 하면 된다.
-    background: [seoulDay, seoulNight, seoulSnow]
+    background: [seoulDay, seoulNight, seoulSnow, seoulSunset]
   },
   GLOBAL: {
     id: 'GLOBAL',

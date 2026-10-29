@@ -233,7 +233,7 @@ describe('배경 순환 (bgIndex)', () => {
     const { CAMPUS_DATA } = await import('../constants/campusConfig.js')
     for (const campus of ['SEOUL', 'GLOBAL']) {
       const count = CAMPUS_DATA[campus].background.length
-      expect(count).toBe(campus === 'GLOBAL' ? 5 : 3) // SEOUL: 낮·밤·눈, GLOBAL: + 낮2·백년관
+      expect(count).toBe(campus === 'GLOBAL' ? 5 : 4) // SEOUL: 낮·밤·눈·노을, GLOBAL: 낮·밤·눈·낮2·백년관
       store.setState({ selectedCampus: campus, bgIndex: 0 })
       const seen = []
       for (let i = 0; i < count; i += 1) {
@@ -262,11 +262,11 @@ describe('배경 순환 (bgIndex)', () => {
     store.setState({ selectedCampus: 'SEOUL', bgIndex: 'abc' })
     store.getState().changeBg()
     expect(store.getState().bgIndex).toBe(1)
-    store.setState({ bgIndex: 2 }) // 마지막 사진 → 처음
+    store.setState({ bgIndex: 3 }) // 마지막 사진 → 처음
     store.getState().changeBg()
     expect(store.getState().bgIndex).toBe(0)
     store.setState({ bgIndex: 99 }) // 범위 밖이어도 유효 범위 안으로 들어온다
     store.getState().changeBg()
-    expect(store.getState().bgIndex).toBeLessThan(3) // SEOUL 3장
+    expect(store.getState().bgIndex).toBeLessThan(4) // SEOUL 4장
   })
 })
