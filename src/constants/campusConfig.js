@@ -6,6 +6,8 @@ import globalDay from './../assets/글캠 낮사진.jpg';
 import globalNight from './../assets/글캠 밤사진예쁜거.jpg';
 import seoulSnow from './../assets/seoul_snow.jpg';
 import globalSnow from './../assets/global_snow.jpg';
+import globalDay2 from './../assets/global_day2.jpg';
+import globalCentennial from './../assets/global_centennial.jpg';
 
 export const CAMPUS_DATA = {
   SEOUL: {
@@ -27,7 +29,7 @@ export const CAMPUS_DATA = {
       bundle: '/api/data',
       library: '/api/library',
     },
-    background: [globalDay, globalNight, globalSnow]
+    background: [globalDay, globalNight, globalSnow, globalDay2, globalCentennial]
   }
 };
 

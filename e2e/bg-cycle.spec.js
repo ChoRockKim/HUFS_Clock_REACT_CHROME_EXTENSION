@@ -8,10 +8,10 @@ import { fileURLToPath } from 'node:url'
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const EXT_PATH = path.resolve(__dirname, '../dist')
 const STORAGE_KEY = 'hufs-clock-settings'
-const BG_COUNT = 3 // campusConfig.js의 캠퍼스별 배경 수 (SEOUL, GLOBAL 모두 낮·밤·눈 3장)
 const CAMPUSES = [
-  { key: 'SEOUL', label: '서울캠퍼스' },
-  { key: 'GLOBAL', label: '글로벌캠퍼스' },
+  // count는 campusConfig.js의 캠퍼스별 배경 수, files는 순서대로 빌드 산출물 URL에 포함되는 원본 파일명 조각
+  { key: 'SEOUL', label: '서울캠퍼스', count: 3, files: [null, null, 'seoul_snow'] },
+  { key: 'GLOBAL', label: '글로벌캠퍼스', count: 5, files: [null, null, 'global_snow', 'global_day2', 'global_centennial'] },
 ]
 
 function computeExtensionId(absPath) {
@@ -77,7 +77,7 @@ test.beforeAll(() => {
   }
 })
 
-for (const { key, label } of CAMPUSES) {
+for (const { key, label, count: BG_COUNT, files } of CAMPUSES) {
   test.describe(`배경 순환 — ${key}`, () => {
     let context
     let userDataDir
@@ -109,8 +109,10 @@ for (const { key, label } of CAMPUSES) {
         seen.push(await currentBg(page))
       }
       expect(new Set(seen).size).toBe(BG_COUNT) // 서로 다른 사진
-      expect(seen[2]).toContain('snow') // 세 번째는 눈 사진 (빌드 산출물 파일명에 원본 이름이 남는다)
-      expect(seen[0]).not.toContain('snow')
+      // 추가한 사진이 실제로 순서대로 적용되는지 (빌드 산출물 파일명에 원본 이름이 남는다)
+      files.forEach((name, i) => {
+        if (name) expect(seen[i]).toContain(name)
+      })
 
       await bgButton(page).click() // 한 바퀴
       await expect.poll(() => currentBg(page)).toBe(first)
